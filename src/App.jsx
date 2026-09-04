@@ -171,6 +171,8 @@ const projects = [
       "Implemented intent classification for real-time voice command recognition.",
       "Developed a PyQt6 GUI with voice-driven drawing, text generation, object rendering, undo/redo, and multi-page workspace support.",
     ],
+    github:
+    "https://github.com/TallaSatyaGanesh/AI-Voice-Controlled-Smart-Whiteboard",
   },
 ];
 
