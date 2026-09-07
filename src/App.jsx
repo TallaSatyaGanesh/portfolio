@@ -110,10 +110,10 @@ const projects = [
     number: "02",
     title: "Hub Gene Identification in Cervical Cancer",
     description:
-      "An end-to-end machine learning project focused on identifying hub genes associated with cervical cancer using gene expression datasets.",
+      "An end-to-end machine learning project for identifying hub genes associated with cervical cancer using gene expression data and protein-protein interaction networks.",
     tech: ["Python", "Scikit-learn", "Pandas", "NumPy", "STRING Database"],
     details: [
-      "Performed data preprocessing and feature selection for biomarker identification.",
+      "Performed data preprocessing and feature selection to identify relevant gene expression features.",
       "Applied protein-protein interaction (PPI) network analysis.",
       "Evaluated machine learning models using multiple performance metrics.",
     ],
