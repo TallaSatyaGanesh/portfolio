@@ -244,7 +244,7 @@ function App() {
               </h1>
 
               <h2 className="mt-7 max-w-3xl text-2xl font-medium text-zinc-300 sm:text-3xl">
-                Computer Science Engineer | AI/ML & Software Developer
+                Computer Science Engineer | AI/ML & Software Developer 🚀
               </h2>
 
               <p className="mt-7 max-w-2xl text-base leading-8 text-zinc-500 sm:text-lg">
