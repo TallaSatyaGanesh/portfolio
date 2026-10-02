@@ -105,6 +105,8 @@ const projects = [
       "Integrated OCR-based text extraction and context-aware information fusion.",
       "Designed voice assistance to convert detected objects, obstacles, and text into real-time speech feedback.",
     ],
+    github:
+      "https://github.com/TallaSatyaGanesh/vision-based-assistive-perception-system",
   },
   {
     number: "02",
@@ -172,7 +174,20 @@ const projects = [
       "Developed a PyQt6 GUI with voice-driven drawing, text generation, object rendering, undo/redo, and multi-page workspace support.",
     ],
     github:
-    "https://github.com/TallaSatyaGanesh/AI-Voice-Controlled-Smart-Whiteboard",
+      "https://github.com/TallaSatyaGanesh/AI-Voice-Controlled-Smart-Whiteboard",
+  },
+  {
+    number: "06",
+    title: "Agentic AI RFP Analysis & Proposal Response System",
+    description:
+      "An Agentic AI project focused on analyzing Requests for Proposals (RFPs) and supporting proposal response preparation.",
+    tech: ["Python", "Agentic AI", "RFP Analysis", "Proposal Responses"],
+    details: [
+      "Organizes RFP analysis into a workflow for understanding proposal requirements.",
+      "Supports the preparation of proposal responses based on the RFP content.",
+      "Designed as an AI-assisted tool for the proposal response process.",
+    ],
+    github: "https://github.com/TallaSatyaGanesh/agentic-rfp-system",
   },
 ];
 
@@ -358,7 +373,7 @@ function App() {
                 {/* Updated: CGPA removed because it is already shown above */}
                 <div className="mt-8 grid max-w-md grid-cols-2 gap-4">
                   <Stat value="3" label="Internships" />
-                  <Stat value="5" label="Projects" />
+                  <Stat value="6" label="Projects" />
                 </div>
               </div>
             </div>
