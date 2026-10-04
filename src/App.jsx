@@ -969,7 +969,9 @@ function App() {
   id="education"
   className="relative overflow-hidden border-t border-white/10 px-6 py-32"
 >
-  <div className="pointer-events-none absolute right-[-10%] top-20 h-80 w-80 rounded-full bg-cyan-400/[0.025] blur-[130px]" />
+  <div className="pointer-events-none absolute left-[-10%] top-24 h-80 w-80 rounded-full bg-cyan-400/[0.03] blur-[130px]" />
+
+  <div className="pointer-events-none absolute bottom-10 right-[-8%] h-96 w-96 rounded-full bg-cyan-400/[0.025] blur-[140px]" />
 
   <div className="relative mx-auto max-w-7xl">
     <div className="mb-14 flex items-center gap-4">
@@ -981,41 +983,203 @@ function App() {
     </div>
 
     <div className="grid gap-8 lg:grid-cols-[1fr_0.65fr] lg:items-end">
-      <h2 className="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-        Academic{" "}
-        <span className="text-zinc-500">background.</span>
-      </h2>
+      <div>
+        <h2 className="max-w-4xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+          Academic{" "}
+          <span className="text-zinc-500">foundation.</span>
+        </h2>
+      </div>
 
       <p className="max-w-md text-base leading-7 text-zinc-500 lg:justify-self-end">
-        The academic foundation behind my journey in computer
-        science, software development, and AI/ML.
+        The academic journey that built my foundation in computer
+        science, technology, and problem solving.
       </p>
     </div>
 
-    <div className="mt-14 space-y-5">
-      <EducationCard
-        degree="Bachelor of Technology in Computer Science and Engineering"
-        institution="Lakireddy Bali Reddy College of Engineering"
-        location="Andhra Pradesh"
-        duration="2023 – 2027"
-        result="CGPA: 7.96 / 10"
-      />
+    <div className="relative mt-16 space-y-5">
+      <div className="absolute left-5 top-8 hidden h-[calc(100%-4rem)] w-px bg-gradient-to-b from-cyan-400/40 via-white/10 to-transparent sm:block" />
 
-      <EducationCard
-        degree="Intermediate (Class XII)"
-        institution="SriChaitanya Junior College"
-        location="Amalapuram, Andhra Pradesh"
-        duration="2020 – 2022"
-        result="Percentage: 80.2%"
-      />
+      {/* B.Tech */}
+      <motion.div
+        initial={{ opacity: 0, y: 25 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="group relative sm:pl-16"
+      >
+        <div className="absolute left-[12px] top-8 hidden h-[17px] w-[17px] rounded-full border-4 border-[#09090b] bg-cyan-300 shadow-[0_0_18px_rgba(103,232,249,0.45)] sm:block" />
 
-      <EducationCard
-        degree="Secondary School Education (Class X)"
-        institution="ZPP High School"
-        location="Cheyyeru, Andhra Pradesh"
-        duration="2019 – 2020"
-        result="Percentage: 86%"
-      />
+        <div className="relative overflow-hidden rounded-[2rem] border border-cyan-400/20 bg-gradient-to-br from-cyan-400/[0.055] via-white/[0.02] to-transparent p-7 transition duration-500 hover:-translate-y-1 hover:border-cyan-400/35 hover:shadow-[0_25px_80px_rgba(0,0,0,0.3)] sm:p-9">
+          <div className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-cyan-400/[0.05] blur-[70px] transition duration-500 group-hover:bg-cyan-400/[0.11]" />
+
+          <div className="relative">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+              <div className="flex gap-5">
+                <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-400/20 bg-cyan-400/[0.06] sm:flex">
+                  <GraduationCap
+                    size={21}
+                    className="text-cyan-300"
+                  />
+                </div>
+
+                <div>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="rounded-full border border-cyan-400/15 bg-cyan-400/[0.05] px-3 py-1 text-xs uppercase tracking-[0.18em] text-cyan-300/75">
+                      01
+                    </span>
+
+                    <span className="text-xs uppercase tracking-[0.18em] text-zinc-600">
+                      Current
+                    </span>
+                  </div>
+
+                  <h3 className="mt-4 text-xl font-semibold leading-7 text-white sm:text-2xl">
+                    Bachelor of Technology in Computer Science and Engineering
+                  </h3>
+
+                  <p className="mt-3 text-zinc-300">
+                    Lakireddy Bali Reddy College of Engineering
+                  </p>
+
+                  <p className="mt-1 text-sm text-zinc-600">
+                    Andhra Pradesh
+                  </p>
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-white/10 bg-black/15 px-4 py-3 lg:text-right">
+                <p className="text-sm text-zinc-500">
+                  2023 – 2027
+                </p>
+
+                <p className="mt-1 text-sm font-medium text-cyan-300/80">
+                  CGPA: 7.96 / 10
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-7 h-px w-full bg-gradient-to-r from-cyan-400/20 via-white/10 to-transparent" />
+
+            <div className="mt-6 h-1 w-10 rounded-full bg-cyan-300/60 transition-all duration-500 group-hover:w-16" />
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Intermediate */}
+      <motion.div
+        initial={{ opacity: 0, y: 25 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.1, duration: 0.5 }}
+        className="group relative sm:pl-16"
+      >
+        <div className="absolute left-[12px] top-8 hidden h-[17px] w-[17px] rounded-full border-4 border-[#09090b] bg-zinc-600 transition duration-300 group-hover:bg-cyan-300 group-hover:shadow-[0_0_18px_rgba(103,232,249,0.4)] sm:block" />
+
+        <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.04] via-white/[0.02] to-transparent p-7 transition duration-500 hover:-translate-y-1 hover:border-cyan-400/25 hover:shadow-[0_20px_60px_rgba(0,0,0,0.25)] sm:p-9">
+          <div className="pointer-events-none absolute -right-20 -top-20 h-44 w-44 rounded-full bg-cyan-400/[0.025] blur-[65px] transition duration-500 group-hover:bg-cyan-400/[0.08]" />
+
+          <div className="relative">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+              <div className="flex gap-5">
+                <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.03] sm:flex">
+                  <GraduationCap
+                    size={20}
+                    className="text-zinc-500 transition group-hover:text-cyan-300"
+                  />
+                </div>
+
+                <div>
+                  <span className="inline-flex rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs uppercase tracking-[0.18em] text-zinc-600">
+                    02
+                  </span>
+
+                  <h3 className="mt-4 text-xl font-semibold leading-7 text-white">
+                    Intermediate (Class XII)
+                  </h3>
+
+                  <p className="mt-3 text-zinc-400">
+                    SriChaitanya Junior College
+                  </p>
+
+                  <p className="mt-1 text-sm text-zinc-600">
+                    Amalapuram, Andhra Pradesh
+                  </p>
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-white/10 bg-black/15 px-4 py-3 lg:text-right">
+                <p className="text-sm text-zinc-500">
+                  2020 – 2022
+                </p>
+
+                <p className="mt-1 text-sm font-medium text-zinc-300">
+                  Percentage: 80.2%
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-7 h-px w-full bg-gradient-to-r from-white/10 via-white/5 to-transparent" />
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Secondary School */}
+      <motion.div
+        initial={{ opacity: 0, y: 25 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+        className="group relative sm:pl-16"
+      >
+        <div className="absolute left-[12px] top-8 hidden h-[17px] w-[17px] rounded-full border-4 border-[#09090b] bg-zinc-600 transition duration-300 group-hover:bg-cyan-300 group-hover:shadow-[0_0_18px_rgba(103,232,249,0.4)] sm:block" />
+
+        <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.04] via-white/[0.02] to-transparent p-7 transition duration-500 hover:-translate-y-1 hover:border-cyan-400/25 hover:shadow-[0_20px_60px_rgba(0,0,0,0.25)] sm:p-9">
+          <div className="pointer-events-none absolute -right-20 -top-20 h-44 w-44 rounded-full bg-cyan-400/[0.025] blur-[65px] transition duration-500 group-hover:bg-cyan-400/[0.08]" />
+
+          <div className="relative">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+              <div className="flex gap-5">
+                <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.03] sm:flex">
+                  <GraduationCap
+                    size={20}
+                    className="text-zinc-500 transition group-hover:text-cyan-300"
+                  />
+                </div>
+
+                <div>
+                  <span className="inline-flex rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs uppercase tracking-[0.18em] text-zinc-600">
+                    03
+                  </span>
+
+                  <h3 className="mt-4 text-xl font-semibold leading-7 text-white">
+                    Secondary School Education (Class X)
+                  </h3>
+
+                  <p className="mt-3 text-zinc-400">
+                    ZPP High School
+                  </p>
+
+                  <p className="mt-1 text-sm text-zinc-600">
+                    Cheyyeru, Andhra Pradesh
+                  </p>
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-white/10 bg-black/15 px-4 py-3 lg:text-right">
+                <p className="text-sm text-zinc-500">
+                  2019 – 2020
+                </p>
+
+                <p className="mt-1 text-sm font-medium text-zinc-300">
+                  Percentage: 86%
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-7 h-px w-full bg-gradient-to-r from-white/10 via-white/5 to-transparent" />
+          </div>
+        </div>
+      </motion.div>
     </div>
   </div>
 </section>
@@ -1067,7 +1231,7 @@ function App() {
           <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-cyan-400/[0.04] blur-[45px] transition duration-500 group-hover:bg-cyan-400/[0.1]" />
 
           <div className="relative flex items-start gap-5">
-            <div className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-cyan-400/15 bg-cyan-400/[0.05] text-xs font-medium text-cyan-300">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-cyan-400/15 bg-cyan-400/[0.05] text-xs font-medium text-cyan-300">
               {String(index + 1).padStart(2, "0")}
             </div>
 
@@ -1227,10 +1391,10 @@ function EducationCard({
 
       <div className="relative flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex gap-5">
-          <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.05] text-cyan-300 sm:flex">
+          <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.05] sm:flex">
             <GraduationCap
               size={20}
-              className="transition duration-300 group-hover:text-cyan-200"
+              className="text-zinc-400 transition duration-300 group-hover:text-cyan-300"
             />
           </div>
 
