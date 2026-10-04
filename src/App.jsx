@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+
 import {
   ArrowDown,
   ArrowUpRight,
@@ -8,10 +9,19 @@ import {
   GraduationCap,
   Mail,
   MapPin,
+  Sparkles,
+  Award,
+  Layers3,
 } from "lucide-react";
 
 import profileImage from "./assets/passport_image.jpeg";
 
+import project01Image from "./assets/project01_assistive.png";
+import project02Image from "./assets/project02_genes.png";
+import project03Image from "./assets/project03_grocery.png";
+import project04Image from "./assets/project04_ecommerce.png";
+import project05Image from "./assets/project05_whiteboard.png";
+import project06Image from "./assets/project06_rfp.png";
 const skills = [
   {
     category: "Programming",
@@ -87,6 +97,7 @@ const internships = [
 const projects = [
   {
     number: "01",
+    image: project01Image,
     title:
       "Vision-Based Assistive Perception System with Voice Assistance",
     status: "Ongoing",
@@ -110,6 +121,7 @@ const projects = [
   },
   {
     number: "02",
+    image: project02Image,
     title: "Hub Gene Identification in Cervical Cancer",
     description:
       "An end-to-end machine learning project for identifying hub genes associated with cervical cancer using gene expression data and protein-protein interaction networks.",
@@ -124,6 +136,7 @@ const projects = [
   },
   {
     number: "03",
+    image: project03Image,
     title: "Online Grocery Management System",
     description:
       "A full-stack web application for online grocery shopping and inventory management.",
@@ -145,6 +158,7 @@ const projects = [
   },
   {
     number: "04",
+    image: project04Image,
     title: "E-Commerce Website",
     description:
       "A responsive e-commerce website with a modern interface and interactive shopping experience.",
@@ -157,6 +171,7 @@ const projects = [
   },
   {
     number: "05",
+    image: project05Image,
     title: "AI Voice Controlled Smart Whiteboard",
     description:
       "An AI-powered digital whiteboard that enables hands-free creation of diagrams, shapes, objects, and educational notes through voice commands.",
@@ -178,6 +193,7 @@ const projects = [
   },
   {
     number: "06",
+    image: project06Image,
     title: "Agentic AI RFP Analysis & Proposal Response System",
     description:
       "An Agentic AI project focused on analyzing Requests for Proposals (RFPs) and supporting proposal response preparation.",
@@ -202,35 +218,38 @@ const certifications = [
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#09090b] text-white selection:bg-white selection:text-black">
+    <div className="min-h-screen bg-[#05080d] text-white selection:bg-cyan-300 selection:text-black">
       {/* Navigation */}
-      <nav className="fixed top-0 z-50 w-full border-b border-white/10 bg-[#09090b]/80 backdrop-blur-xl">
+      <nav className="fixed top-0 z-50 w-full border-b border-cyan-400/10 bg-[#05080d]/90 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-          <a href="#" className="text-xl font-bold tracking-tight">
+          <a
+            href="#"
+            className="text-xl font-bold tracking-tight transition hover:text-cyan-300"
+          >
             TSG<span className="text-zinc-600">.</span>
           </a>
 
-          <div className="hidden gap-8 text-sm text-zinc-400 md:flex">
-            <a href="#about" className="transition hover:text-white">
+          <div className="hidden items-center gap-8 text-sm text-zinc-400 md:flex">
+            <a href="#about" className="transition hover:text-cyan-300">
               About
             </a>
-            <a href="#skills" className="transition hover:text-white">
+            <a href="#skills" className="transition hover:text-cyan-300">
               Skills
             </a>
-            <a href="#experience" className="transition hover:text-white">
+            <a href="#experience" className="transition hover:text-cyan-300">
               Experience
             </a>
-            <a href="#projects" className="transition hover:text-white">
+            <a href="#projects" className="transition hover:text-cyan-300">
               Projects
             </a>
-            <a href="#education" className="transition hover:text-white">
+            <a href="#education" className="transition hover:text-cyan-300">
               Education
             </a>
           </div>
 
           <a
             href="#contact"
-            className="rounded-full border border-white/15 px-4 py-2 text-sm transition hover:bg-white hover:text-black"
+            className="rounded-full border border-cyan-400/20 px-4 py-2 text-sm text-zinc-200 transition hover:border-cyan-400/50 hover:bg-cyan-400/10 hover:text-cyan-300"
           >
             Let's Talk
           </a>
@@ -240,7 +259,7 @@ function App() {
       {/* Hero */}
       <main>
         <section className="relative flex min-h-screen items-center overflow-hidden px-6 pt-24">
-          <div className="absolute left-1/2 top-1/2 -z-10 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/[0.035] blur-3xl" />
+          <div className="absolute left-1/2 top-1/2 -z-10 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/[0.055] blur-[120px]" />
 
           <div className="mx-auto grid w-full max-w-7xl items-center gap-16 lg:grid-cols-[1.2fr_0.8fr]">
             {/* Hero Content */}
@@ -272,7 +291,7 @@ function App() {
               <div className="mt-10 flex flex-wrap gap-4">
                 <a
                   href="#projects"
-                  className="group flex items-center gap-2 rounded-full bg-white px-6 py-3 font-medium text-black transition hover:bg-zinc-200"
+                  className="group flex items-center gap-2 rounded-full bg-cyan-300 px-6 py-3 font-medium text-black transition hover:bg-cyan-200 hover:shadow-[0_0_35px_rgba(34,211,238,0.18)]"
                 >
                   View My Projects
                   <ArrowUpRight
@@ -283,7 +302,7 @@ function App() {
 
                 <a
                   href="#contact"
-                  className="rounded-full border border-white/15 px-6 py-3 font-medium transition hover:bg-white/10"
+                  className="rounded-full border border-cyan-400/20 px-6 py-3 font-medium text-zinc-200 transition hover:border-cyan-400/50 hover:bg-cyan-400/10"
                 >
                   Contact Me
                 </a>
@@ -310,9 +329,9 @@ function App() {
               className="flex justify-center lg:justify-end"
             >
               <div className="relative">
-                <div className="absolute -inset-4 rounded-[2rem] border border-white/10" />
+                <div className="absolute -inset-4 rounded-[2rem] border border-cyan-400/15" />
 
-                <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]">
+                <div className="relative overflow-hidden rounded-[2rem] border border-cyan-400/15 bg-white/[0.03] shadow-[0_0_80px_rgba(34,211,238,0.08)]">
                   <img
                     src={profileImage}
                     alt="Talla Satya Ganesh"
@@ -320,8 +339,8 @@ function App() {
                   />
                 </div>
 
-                <div className="absolute -bottom-6 -left-6 rounded-2xl border border-white/10 bg-[#111113]/90 px-5 py-4 backdrop-blur-xl">
-                  <p className="text-xs uppercase tracking-widest text-zinc-600">
+                <div className="absolute -bottom-6 -left-6 rounded-2xl border border-white/10 bg-[#0a1118]/95 px-5 py-4 backdrop-blur-xl">
+                  <p className="text-xs uppercase tracking-widest text-cyan-400/60">
                     Currently
                   </p>
                   <p className="mt-1 text-sm font-medium text-zinc-200">
@@ -346,7 +365,7 @@ function App() {
         {/* About */}
         <section id="about" className="border-t border-white/10 px-6 py-32">
           <div className="mx-auto max-w-7xl">
-            <p className="mb-5 text-sm uppercase tracking-[0.3em] text-zinc-600">
+            <p className="mb-5 text-sm uppercase tracking-[0.3em] text-cyan-400/60">
               01 — About Me
             </p>
 
@@ -383,7 +402,7 @@ function App() {
         {/* Skills */}
         <section id="skills" className="border-t border-white/10 px-6 py-32">
           <div className="mx-auto max-w-7xl">
-            <p className="mb-5 text-sm uppercase tracking-[0.3em] text-zinc-600">
+            <p className="mb-5 text-sm uppercase tracking-[0.3em] text-cyan-400/60">
               02 — Skills
             </p>
 
@@ -399,15 +418,17 @@ function App() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.05 }}
-                  className="rounded-3xl border border-white/10 bg-white/[0.02] p-7"
+                  className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.025] p-7 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/25 hover:bg-cyan-400/[0.025]"
                 >
-                  <h3 className="text-lg font-semibold">{skill.category}</h3>
+                  <h3 className="text-lg font-semibold">
+                    {skill.category}
+                  </h3>
 
                   <div className="mt-5 flex flex-wrap gap-2">
                     {skill.items.map((item) => (
                       <span
                         key={item}
-                        className="rounded-full border border-white/10 px-3 py-1.5 text-sm text-zinc-400"
+                        className="rounded-full border border-white/10 bg-white/[0.02] px-3 py-1.5 text-sm text-zinc-400 transition hover:border-cyan-400/30 hover:text-cyan-200"
                       >
                         {item}
                       </span>
@@ -425,7 +446,7 @@ function App() {
           className="border-t border-white/10 px-6 py-32"
         >
           <div className="mx-auto max-w-7xl">
-            <p className="mb-5 text-sm uppercase tracking-[0.3em] text-zinc-600">
+            <p className="mb-5 text-sm uppercase tracking-[0.3em] text-cyan-400/60">
               03 — Experience
             </p>
 
@@ -441,11 +462,11 @@ function App() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.08 }}
-                  className="rounded-3xl border border-white/10 bg-white/[0.02] p-7 sm:p-9"
+                  className="group relative rounded-3xl border border-white/10 bg-white/[0.025] p-7 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/20 hover:bg-cyan-400/[0.02] sm:p-9"
                 >
                   <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                     <div className="flex gap-5">
-                      <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.03] sm:flex">
+                      <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.06] text-cyan-300 sm:flex">
                         <Briefcase size={20} className="text-zinc-400" />
                       </div>
 
@@ -460,7 +481,7 @@ function App() {
                       </div>
                     </div>
 
-                    <span className="text-sm text-zinc-600">
+                    <span className="text-sm font-medium tracking-widest text-cyan-400/60">
                       {internship.duration}
                     </span>
                   </div>
@@ -486,7 +507,7 @@ function App() {
         {/* Projects */}
         <section id="projects" className="border-t border-white/10 px-6 py-32">
           <div className="mx-auto max-w-7xl">
-            <p className="mb-5 text-sm uppercase tracking-[0.3em] text-zinc-600">
+            <p className="mb-5 text-sm uppercase tracking-[0.3em] text-cyan-400/60">
               04 — Projects
             </p>
 
@@ -509,15 +530,22 @@ function App() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.06 }}
-                  className="group rounded-[2rem] border border-white/10 bg-white/[0.02] p-8 transition hover:border-white/20 sm:p-10"
+                  className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.025] p-8 transition duration-500 hover:-translate-y-2 hover:border-cyan-400/25 hover:shadow-[0_25px_80px_rgba(0,0,0,0.35)] sm:p-10"
                 >
+                <div className="mb-8 overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/20">
+                    <img
+                        src={project.image}
+                        alt={project.title}
+                        className="h-56 w-full object-cover transition duration-500 group-hover:scale-105"
+                    />
+                </div>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-zinc-600">
                       {project.number}
                     </span>
 
                     {project.status && (
-                      <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-500">
+                      <span className="rounded-full border border-cyan-400/15 bg-cyan-400/[0.05] px-3 py-1 text-xs text-cyan-300/80">
                         {project.status}
                       </span>
                     )}
@@ -544,7 +572,7 @@ function App() {
                     {project.tech.map((technology) => (
                       <span
                         key={technology}
-                        className="rounded-full bg-white/[0.04] px-3 py-1.5 text-xs text-zinc-400"
+                        className="rounded-full border border-white/5 bg-white/[0.04] px-3 py-1.5 text-xs text-zinc-400 transition hover:border-cyan-400/25 hover:text-cyan-200"
                       >
                         {technology}
                       </span>
@@ -556,7 +584,7 @@ function App() {
                       href={project.github}
                       target="_blank"
                       rel="noreferrer"
-                      className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-zinc-300 transition hover:text-white"
+                      className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-cyan-300 transition hover:text-cyan-200"
                     >
                       View on GitHub
                       <ExternalLink size={15} />
@@ -574,7 +602,7 @@ function App() {
           className="border-t border-white/10 px-6 py-32"
         >
           <div className="mx-auto max-w-7xl">
-            <p className="mb-5 text-sm uppercase tracking-[0.3em] text-zinc-600">
+            <p className="mb-5 text-sm uppercase tracking-[0.3em] text-cyan-400/60">
               05 — Education
             </p>
 
@@ -613,7 +641,7 @@ function App() {
         {/* Certifications */}
         <section className="border-t border-white/10 px-6 py-32">
           <div className="mx-auto max-w-7xl">
-            <p className="mb-5 text-sm uppercase tracking-[0.3em] text-zinc-600">
+            <p className="mb-5 text-sm uppercase tracking-[0.3em] text-cyan-400/60">
               06 — Certifications
             </p>
 
@@ -631,9 +659,9 @@ function App() {
                   }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.02] p-5"
+                  className="flex items-center gap-4 rounded-2xl border border-cyan-400/10 bg-gradient-to-br from-cyan-400/[0.06] to-white/[0.015] p-5 transition hover:-translate-y-1 hover:border-cyan-400/25"
                 >
-                  <div className="h-2 w-2 rounded-full bg-zinc-500" />
+                  <div className="h-2.5 w-2.5 rounded-full bg-cyan-300 shadow-[0_0_12px_rgba(103,232,249,0.45)]" />
 
                   <p className="text-sm leading-6 text-zinc-400">
                     {certification}
@@ -647,7 +675,7 @@ function App() {
         {/* Contact */}
         <section id="contact" className="border-t border-white/10 px-6 py-32">
           <div className="mx-auto max-w-7xl">
-            <p className="mb-5 text-sm uppercase tracking-[0.3em] text-zinc-600">
+            <p className="mb-5 text-sm uppercase tracking-[0.3em] text-cyan-400/60">
               07 — Contact
             </p>
 
@@ -715,7 +743,7 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 px-6 py-8">
+      <footer className="border-t border-cyan-400/10 px-6 py-8">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 text-sm text-zinc-600 sm:flex-row sm:items-center sm:justify-between">
           <p>© 2026 Talla Satya Ganesh</p>
           <p>Built with React · Vite · Tailwind CSS</p>
@@ -742,10 +770,10 @@ function EducationCard({
   result,
 }) {
   return (
-    <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-7 sm:p-8">
+    <div className="rounded-3xl border border-white/10 bg-white/[0.025] p-7 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/20 hover:bg-cyan-400/[0.02] sm:p-8">
       <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex gap-5">
-          <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/10 sm:flex">
+          <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.05] text-cyan-300 sm:flex">
             <GraduationCap size={20} className="text-zinc-400" />
           </div>
 
