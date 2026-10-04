@@ -700,329 +700,391 @@ function App() {
         </section>
 
         {/* Experience */}
-        <section
-          id="experience"
-          className="border-t border-white/10 px-6 py-32"
-        >
-          <div className="mx-auto max-w-7xl">
-            <p className="mb-5 text-sm uppercase tracking-[0.3em] text-cyan-400/60">
-              03 — Experience
-            </p>
+<section
+  id="experience"
+  className="relative overflow-hidden border-t border-white/10 px-6 py-32"
+>
+  {/* Background glow */}
+  <div className="pointer-events-none absolute left-[-8%] top-24 h-80 w-80 rounded-full bg-cyan-400/[0.035] blur-[130px]" />
+  <div className="pointer-events-none absolute bottom-20 right-[-5%] h-96 w-96 rounded-full bg-cyan-400/[0.025] blur-[140px]" />
 
-            <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-              Internship experience.
-            </h2>
+  <div className="relative mx-auto max-w-7xl">
+    {/* Section label */}
+    <div className="mb-14 flex items-center gap-4">
+      <span className="h-px w-10 bg-cyan-300/70" />
 
-            <div className="mt-14 space-y-6">
-              {internships.map((internship, index) => (
-                <motion.div
-                  key={internship.role}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.08 }}
-                  className="group relative rounded-3xl border border-white/10 bg-white/[0.025] p-7 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/20 hover:bg-cyan-400/[0.02] sm:p-9"
-                >
-                  <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
-                    <div className="flex gap-5">
-                      <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.06] text-cyan-300 sm:flex">
-                        <Briefcase
-                          size={20}
-                          className="text-zinc-400"
-                        />
-                      </div>
+      <p className="text-sm uppercase tracking-[0.3em] text-cyan-400/70">
+        03 — Experience
+      </p>
+    </div>
 
-                      <div>
-                        <h3 className="text-xl font-semibold">
-                          {internship.role}
-                        </h3>
+    {/* Heading */}
+    <div className="grid gap-8 lg:grid-cols-[1fr_0.7fr] lg:items-end">
+      <div>
+        <h2 className="max-w-4xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+          Experience that{" "}
+          <span className="text-zinc-500">shaped my skills.</span>
+        </h2>
+      </div>
 
-                        <p className="mt-2 text-zinc-400">
-                          {internship.company}
-                        </p>
-                      </div>
+      <p className="max-w-md text-base leading-7 text-zinc-500 lg:justify-self-end">
+        Hands-on experience across research, full-stack development,
+        Salesforce, and real-world technology projects.
+      </p>
+    </div>
+
+    {/* Experience timeline */}
+    <div className="relative mt-16">
+      {/* Timeline line */}
+      <div className="absolute left-[19px] top-4 hidden h-[calc(100%-2rem)] w-px bg-gradient-to-b from-cyan-400/40 via-white/10 to-transparent md:block" />
+
+      <div className="space-y-7">
+        {internships.map((internship, index) => (
+          <motion.div
+            key={internship.role}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{
+              delay: index * 0.1,
+              duration: 0.55,
+            }}
+            className="group relative md:pl-16"
+          >
+            {/* Timeline dot */}
+            <div className="absolute left-[11px] top-8 hidden h-[17px] w-[17px] rounded-full border-4 border-[#09090b] bg-cyan-300 shadow-[0_0_18px_rgba(103,232,249,0.45)] md:block" />
+
+            {/* Experience card */}
+            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.045] via-white/[0.02] to-transparent p-7 transition duration-500 hover:-translate-y-1 hover:border-cyan-400/25 hover:shadow-[0_25px_80px_rgba(0,0,0,0.3)] sm:p-9">
+              {/* Hover glow */}
+              <div className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-cyan-400/[0.045] blur-[70px] transition duration-500 group-hover:bg-cyan-400/[0.1]" />
+
+              <div className="relative">
+                {/* Top row */}
+                <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+                  <div className="flex gap-5">
+                    {/* Icon */}
+                    <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.06] text-cyan-300 sm:flex">
+                      <Briefcase
+                        size={20}
+                        className="transition duration-300 group-hover:text-cyan-200"
+                      />
                     </div>
 
-                    <span className="text-sm font-medium tracking-widest text-cyan-400/60">
-                      {internship.duration}
-                    </span>
+                    <div>
+                      {/* Number */}
+                      <p className="text-xs uppercase tracking-[0.25em] text-cyan-400/55">
+                        0{index + 1} — Internship
+                      </p>
+
+                      {/* Role */}
+                      <h3 className="mt-3 text-xl font-semibold tracking-tight text-white sm:text-2xl">
+                        {internship.role}
+                      </h3>
+
+                      {/* Company */}
+                      <p className="mt-2 text-zinc-400">
+                        {internship.company}
+                      </p>
+                    </div>
                   </div>
 
-                  <p className="mt-7 max-w-4xl leading-7 text-zinc-500">
-                    {internship.description}
-                  </p>
-
-                  <ul className="mt-5 space-y-2 text-sm leading-6 text-zinc-500">
-                    {internship.points.map((point) => (
-                      <li key={point} className="flex gap-3">
-                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-zinc-600" />
-                        {point}
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Projects */}
-        <section
-          id="projects"
-          className="border-t border-white/10 px-6 py-32"
-        >
-          <div className="mx-auto max-w-7xl">
-            <p className="mb-5 text-sm uppercase tracking-[0.3em] text-cyan-400/60">
-              04 — Projects
-            </p>
-
-            <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-              <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-                Things I've built.
-              </h2>
-
-              <p className="max-w-md text-sm leading-6 text-zinc-600">
-                A selection of academic, research, AI, and full-stack
-                projects.
-              </p>
-            </div>
-
-            <div className="mt-14 grid gap-6 lg:grid-cols-2">
-              {projects.map((project, index) => (
-                <motion.div
-                  key={project.number}
-                  initial={{ opacity: 0, y: 25 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.06 }}
-                  className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.025] p-8 transition duration-500 hover:-translate-y-2 hover:border-cyan-400/25 hover:shadow-[0_25px_80px_rgba(0,0,0,0.35)] sm:p-10"
-                >
-                  <div className="mb-8 overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/20">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="h-56 w-full object-cover transition duration-500 group-hover:scale-105"
-                    />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-zinc-600">
-                      {project.number}
-                    </span>
-
-                    {project.status && (
-                      <span className="rounded-full border border-cyan-400/15 bg-cyan-400/[0.05] px-3 py-1 text-xs text-cyan-300/80">
-                        {project.status}
-                      </span>
-                    )}
-                  </div>
-
-                  <h3 className="mt-10 text-2xl font-semibold leading-tight">
-                    {project.title}
-                  </h3>
-
-                  <p className="mt-5 leading-7 text-zinc-500">
-                    {project.description}
-                  </p>
-
-                  <ul className="mt-6 space-y-2 text-sm leading-6 text-zinc-500">
-                    {project.details.map((detail) => (
-                      <li key={detail} className="flex gap-3">
-                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-zinc-600" />
-                        {detail}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="mt-8 flex flex-wrap gap-2">
-                    {project.tech.map((technology) => (
-                      <span
-                        key={technology}
-                        className="rounded-full border border-white/5 bg-white/[0.04] px-3 py-1.5 text-xs text-zinc-400 transition hover:border-cyan-400/25 hover:text-cyan-200"
-                      >
-                        {technology}
-                      </span>
-                    ))}
-                  </div>
-
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-cyan-300 transition hover:text-cyan-200"
-                    >
-                      View on GitHub
-                      <ExternalLink size={15} />
-                    </a>
-                  )}
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-                {/* Education */}
-        <section
-          id="education"
-          className="border-t border-white/10 px-6 py-32"
-        >
-          <div className="mx-auto max-w-7xl">
-            <p className="mb-5 text-sm uppercase tracking-[0.3em] text-cyan-400/60">
-              05 — Education
-            </p>
-
-            <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-              Academic background.
-            </h2>
-
-            <div className="mt-14 space-y-5">
-              <EducationCard
-                degree="Bachelor of Technology in Computer Science and Engineering"
-                institution="Lakireddy Bali Reddy College of Engineering"
-                location="Andhra Pradesh"
-                duration="2023 – 2027"
-                result="CGPA: 7.96 / 10"
-              />
-
-              <EducationCard
-                degree="Intermediate (Class XII)"
-                institution="SriChaitanya Junior College"
-                location="Amalapuram, Andhra Pradesh"
-                duration="2020 – 2022"
-                result="Percentage: 80.2%"
-              />
-
-              <EducationCard
-                degree="Secondary School Education (Class X)"
-                institution="ZPP High School"
-                location="Cheyyeru, Andhra Pradesh"
-                duration="2019 – 2020"
-                result="Percentage: 86%"
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* Certifications */}
-        <section className="border-t border-white/10 px-6 py-32">
-          <div className="mx-auto max-w-7xl">
-            <p className="mb-5 text-sm uppercase tracking-[0.3em] text-cyan-400/60">
-              06 — Certifications
-            </p>
-
-            <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-              Learning beyond the classroom.
-            </h2>
-
-            <div className="mt-12 grid gap-4 md:grid-cols-2">
-              {certifications.map((certification, index) => (
-                <motion.div
-                  key={certification}
-                  initial={{
-                    opacity: 0,
-                    x: index % 2 === 0 ? -15 : 15,
-                  }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  className="flex items-center gap-4 rounded-2xl border border-cyan-400/10 bg-gradient-to-br from-cyan-400/[0.06] to-white/[0.015] p-5 transition hover:-translate-y-1 hover:border-cyan-400/25"
-                >
-                  <div className="h-2.5 w-2.5 rounded-full bg-cyan-300 shadow-[0_0_12px_rgba(103,232,249,0.45)]" />
-
-                  <p className="text-sm leading-6 text-zinc-400">
-                    {certification}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Contact */}
-        <section
-          id="contact"
-          className="border-t border-white/10 px-6 py-32"
-        >
-          <div className="mx-auto max-w-7xl">
-            <p className="mb-5 text-sm uppercase tracking-[0.3em] text-cyan-400/60">
-              07 — Contact
-            </p>
-
-            <div className="grid gap-12 lg:grid-cols-2">
-              <div>
-                <h2 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-6xl">
-                  Let's build something{" "}
-                  <span className="text-zinc-500">meaningful.</span>
-                </h2>
-
-                <p className="mt-7 max-w-xl text-lg leading-8 text-zinc-500">
-                  I'm open to opportunities where I can apply my skills in
-                  software development, AI/ML, and technology-driven problem
-                  solving.
-                </p>
-              </div>
-
-              <div className="lg:pt-3">
-                <a
-                  href="mailto:tallaganesh17@gmail.com"
-                  className="flex items-center gap-4 border-b border-white/10 py-5 text-zinc-300 transition hover:text-white"
-                >
-                  <Mail size={20} />
-                  <span>tallaganesh17@gmail.com</span>
-                </a>
-
-                <a
-                  href="https://github.com/TallaSatyaGanesh"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-4 border-b border-white/10 py-5 text-zinc-300 transition hover:text-white"
-                >
-                  <Code2 size={20} />
-                  <span>GitHub</span>
-                  <ExternalLink size={15} className="ml-auto" />
-                </a>
-
-                <a
-                  href="https://linkedin.com/in/talla-satya-ganesh-0a26842ba"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-4 border-b border-white/10 py-5 text-zinc-300 transition hover:text-white"
-                >
-                  <span className="flex h-5 w-5 items-center justify-center rounded bg-zinc-300 text-xs font-bold text-black">
-                    in
+                  {/* Duration */}
+                  <span className="w-fit rounded-full border border-cyan-400/15 bg-cyan-400/[0.045] px-4 py-2 text-xs font-medium tracking-[0.18em] text-cyan-300/75">
+                    {internship.duration}
                   </span>
+                </div>
 
-                  <span>LinkedIn</span>
+                {/* Divider */}
+                <div className="my-7 h-px w-full bg-gradient-to-r from-cyan-400/20 via-white/10 to-transparent" />
 
-                  <ExternalLink size={15} className="ml-auto" />
-                </a>
+                {/* Description */}
+                <p className="max-w-4xl leading-7 text-zinc-400">
+                  {internship.description}
+                </p>
 
-                <a
-                  href="https://www.hackerrank.com/profile/tallaganesh17"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-4 border-b border-white/10 py-5 text-zinc-300 transition hover:text-white"
-                >
-                  <Code2 size={20} />
+                {/* Points */}
+                <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+                  {internship.points.map((point) => (
+                    <li
+                      key={point}
+                      className="flex gap-3 rounded-xl border border-white/[0.06] bg-black/10 p-3.5 text-sm leading-6 text-zinc-500 transition duration-300 group-hover:border-white/[0.09]"
+                    >
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300/60" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
 
-                  <span>HackerRank</span>
-
-                  <ExternalLink size={15} className="ml-auto" />
-                </a>
+                {/* Bottom accent */}
+                <div className="mt-7 h-1 w-10 rounded-full bg-cyan-300/60 transition-all duration-500 group-hover:w-20" />
               </div>
             </div>
-          </div>
-        </section>
-      </main>
-
-      {/* Footer */}
-      <footer className="border-t border-cyan-400/10 px-6 py-8">
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 text-sm text-zinc-600 sm:flex-row sm:items-center sm:justify-between">
-          <p>© 2026 Talla Satya Ganesh</p>
-
-          <p>Built with React · Vite · Tailwind CSS</p>
-        </div>
-      </footer>
+          </motion.div>
+        ))}
+      </div>
     </div>
+  </div>
+</section>
+
+{/* Projects */}
+<section
+  id="projects"
+  className="border-t border-white/10 px-6 py-32"
+>
+  <div className="mx-auto max-w-7xl">
+    <p className="mb-5 text-sm uppercase tracking-[0.3em] text-cyan-400/60">
+      04 — Projects
+    </p>
+
+    <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+      <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">
+        Things I've built.
+      </h2>
+
+      <p className="max-w-md text-sm leading-6 text-zinc-600">
+        A selection of academic, research, AI, and full-stack
+        projects.
+      </p>
+    </div>
+
+    <div className="mt-14 grid gap-6 lg:grid-cols-2">
+      {projects.map((project, index) => (
+        <motion.div
+          key={project.number}
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: index * 0.06 }}
+          className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.025] p-8 transition duration-500 hover:-translate-y-2 hover:border-cyan-400/25 hover:shadow-[0_25px_80px_rgba(0,0,0,0.35)] sm:p-10"
+        >
+          <div className="mb-8 overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/20">
+            <img
+              src={project.image}
+              alt={project.title}
+              className="h-56 w-full object-cover transition duration-500 group-hover:scale-105"
+            />
+          </div>
+
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-zinc-600">
+              {project.number}
+            </span>
+
+            {project.status && (
+              <span className="rounded-full border border-cyan-400/15 bg-cyan-400/[0.05] px-3 py-1 text-xs text-cyan-300/80">
+                {project.status}
+              </span>
+            )}
+          </div>
+
+          <h3 className="mt-10 text-2xl font-semibold leading-tight">
+            {project.title}
+          </h3>
+
+          <p className="mt-5 leading-7 text-zinc-500">
+            {project.description}
+          </p>
+
+          <ul className="mt-6 space-y-2 text-sm leading-6 text-zinc-500">
+            {project.details.map((detail) => (
+              <li key={detail} className="flex gap-3">
+                <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-zinc-600" />
+                {detail}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-8 flex flex-wrap gap-2">
+            {project.tech.map((technology) => (
+              <span
+                key={technology}
+                className="rounded-full border border-white/5 bg-white/[0.04] px-3 py-1.5 text-xs text-zinc-400 transition hover:border-cyan-400/25 hover:text-cyan-200"
+              >
+                {technology}
+              </span>
+            ))}
+          </div>
+
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-cyan-300 transition hover:text-cyan-200"
+            >
+              View on GitHub
+              <ExternalLink size={15} />
+            </a>
+          )}
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* Education */}
+<section
+  id="education"
+  className="border-t border-white/10 px-6 py-32"
+>
+  <div className="mx-auto max-w-7xl">
+    <p className="mb-5 text-sm uppercase tracking-[0.3em] text-cyan-400/60">
+      05 — Education
+    </p>
+
+    <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">
+      Academic background.
+    </h2>
+
+    <div className="mt-14 space-y-5">
+      <EducationCard
+        degree="Bachelor of Technology in Computer Science and Engineering"
+        institution="Lakireddy Bali Reddy College of Engineering"
+        location="Andhra Pradesh"
+        duration="2023 – 2027"
+        result="CGPA: 7.96 / 10"
+      />
+
+      <EducationCard
+        degree="Intermediate (Class XII)"
+        institution="SriChaitanya Junior College"
+        location="Amalapuram, Andhra Pradesh"
+        duration="2020 – 2022"
+        result="Percentage: 80.2%"
+      />
+
+      <EducationCard
+        degree="Secondary School Education (Class X)"
+        institution="ZPP High School"
+        location="Cheyyeru, Andhra Pradesh"
+        duration="2019 – 2020"
+        result="Percentage: 86%"
+      />
+    </div>
+  </div>
+</section>
+
+{/* Certifications */}
+<section className="border-t border-white/10 px-6 py-32">
+  <div className="mx-auto max-w-7xl">
+    <p className="mb-5 text-sm uppercase tracking-[0.3em] text-cyan-400/60">
+      06 — Certifications
+    </p>
+
+    <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">
+      Learning beyond the classroom.
+    </h2>
+
+    <div className="mt-12 grid gap-4 md:grid-cols-2">
+      {certifications.map((certification, index) => (
+        <motion.div
+          key={certification}
+          initial={{
+            opacity: 0,
+            x: index % 2 === 0 ? -15 : 15,
+          }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="flex items-center gap-4 rounded-2xl border border-cyan-400/10 bg-gradient-to-br from-cyan-400/[0.06] to-white/[0.015] p-5 transition hover:-translate-y-1 hover:border-cyan-400/25"
+        >
+          <div className="h-2.5 w-2.5 rounded-full bg-cyan-300 shadow-[0_0_12px_rgba(103,232,249,0.45)]" />
+
+          <p className="text-sm leading-6 text-zinc-400">
+            {certification}
+          </p>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* Contact */}
+<section
+  id="contact"
+  className="border-t border-white/10 px-6 py-32"
+>
+  <div className="mx-auto max-w-7xl">
+    <p className="mb-5 text-sm uppercase tracking-[0.3em] text-cyan-400/60">
+      07 — Contact
+    </p>
+
+    <div className="grid gap-12 lg:grid-cols-2">
+      <div>
+        <h2 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-6xl">
+          Let's build something{" "}
+          <span className="text-zinc-500">meaningful.</span>
+        </h2>
+
+        <p className="mt-7 max-w-xl text-lg leading-8 text-zinc-500">
+          I'm open to opportunities where I can apply my skills in
+          software development, AI/ML, and technology-driven problem
+          solving.
+        </p>
+      </div>
+
+      <div className="lg:pt-3">
+        <a
+          href="mailto:tallaganesh17@gmail.com"
+          className="flex items-center gap-4 border-b border-white/10 py-5 text-zinc-300 transition hover:text-white"
+        >
+          <Mail size={20} />
+          <span>tallaganesh17@gmail.com</span>
+        </a>
+
+        <a
+          href="https://github.com/TallaSatyaGanesh"
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center gap-4 border-b border-white/10 py-5 text-zinc-300 transition hover:text-white"
+        >
+          <Code2 size={20} />
+          <span>GitHub</span>
+          <ExternalLink size={15} className="ml-auto" />
+        </a>
+
+        <a
+          href="https://linkedin.com/in/talla-satya-ganesh-0a26842ba"
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center gap-4 border-b border-white/10 py-5 text-zinc-300 transition hover:text-white"
+        >
+          <span className="flex h-5 w-5 items-center justify-center rounded bg-zinc-300 text-xs font-bold text-black">
+            in
+          </span>
+
+          <span>LinkedIn</span>
+
+          <ExternalLink size={15} className="ml-auto" />
+        </a>
+
+        <a
+          href="https://www.hackerrank.com/profile/tallaganesh17"
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center gap-4 border-b border-white/10 py-5 text-zinc-300 transition hover:text-white"
+        >
+          <Code2 size={20} />
+
+          <span>HackerRank</span>
+
+          <ExternalLink size={15} className="ml-auto" />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+{/* Footer */}
+<footer className="border-t border-cyan-400/10 px-6 py-8">
+  <div className="mx-auto flex max-w-7xl flex-col gap-3 text-sm text-zinc-600 sm:flex-row sm:items-center sm:justify-between">
+    <p>© 2026 Talla Satya Ganesh</p>
+
+    <p>Built with React · Vite · Tailwind CSS</p>
+  </div>
+</footer>
+</div>
   );
 }
 
