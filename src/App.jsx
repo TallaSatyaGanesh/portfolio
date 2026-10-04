@@ -22,6 +22,7 @@ import project03Image from "./assets/project03_grocery.png";
 import project04Image from "./assets/project04_ecommerce.png";
 import project05Image from "./assets/project05_whiteboard.png";
 import project06Image from "./assets/project06_rfp.png";
+
 const skills = [
   {
     category: "Programming",
@@ -218,7 +219,7 @@ const certifications = [
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#05080d] text-white selection:bg-cyan-300 selection:text-black">
+    <div className="min-h-screen bg-[#02040a] text-white selection:bg-cyan-300 selection:text-black">
       {/* Navigation */}
       <nav className="fixed top-0 z-50 w-full border-b border-cyan-400/10 bg-[#05080d]/90 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
@@ -233,15 +234,19 @@ function App() {
             <a href="#about" className="transition hover:text-cyan-300">
               About
             </a>
+
             <a href="#skills" className="transition hover:text-cyan-300">
               Skills
             </a>
+
             <a href="#experience" className="transition hover:text-cyan-300">
               Experience
             </a>
+
             <a href="#projects" className="transition hover:text-cyan-300">
               Projects
             </a>
+
             <a href="#education" className="transition hover:text-cyan-300">
               Education
             </a>
@@ -294,6 +299,7 @@ function App() {
                   className="group flex items-center gap-2 rounded-full bg-cyan-300 px-6 py-3 font-medium text-black transition hover:bg-cyan-200 hover:shadow-[0_0_35px_rgba(34,211,238,0.18)]"
                 >
                   View My Projects
+
                   <ArrowUpRight
                     size={18}
                     className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
@@ -329,9 +335,9 @@ function App() {
               className="flex justify-center lg:justify-end"
             >
               <div className="relative">
-                <div className="absolute -inset-4 rounded-[2rem] border border-cyan-400/15" />
+                <div className="absolute -inset-5 rounded-[2.5rem] border border-cyan-400/20 shadow-[0_0_80px_rgba(34,211,238,0.10)]" />
 
-                <div className="relative overflow-hidden rounded-[2rem] border border-cyan-400/15 bg-white/[0.03] shadow-[0_0_80px_rgba(34,211,238,0.08)]">
+                <div className="relative overflow-hidden rounded-[2.2rem] border border-cyan-400/20 bg-white/[0.04] shadow-[0_0_100px_rgba(34,211,238,0.12)] transition duration-500 hover:scale-[1.02]">
                   <img
                     src={profileImage}
                     alt="Talla Satya Ganesh"
@@ -343,6 +349,7 @@ function App() {
                   <p className="text-xs uppercase tracking-widest text-cyan-400/60">
                     Currently
                   </p>
+
                   <p className="mt-1 text-sm font-medium text-zinc-200">
                     B.Tech CSE · 2023–2027
                   </p>
@@ -363,36 +370,254 @@ function App() {
         </section>
 
         {/* About */}
-        <section id="about" className="border-t border-white/10 px-6 py-32">
-          <div className="mx-auto max-w-7xl">
-            <p className="mb-5 text-sm uppercase tracking-[0.3em] text-cyan-400/60">
-              01 — About Me
-            </p>
+        <section
+          id="about"
+          className="relative overflow-hidden border-t border-white/10 px-6 py-32"
+        >
+          {/* Ambient background glow */}
+          <div className="pointer-events-none absolute left-[5%] top-20 h-72 w-72 rounded-full bg-cyan-400/[0.035] blur-[120px]" />
 
-            <div className="grid gap-12 lg:grid-cols-2">
-              <h2 className="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-                Building technology with{" "}
-                <span className="text-zinc-500">purpose.</span>
-              </h2>
+          <div className="pointer-events-none absolute bottom-0 right-[8%] h-80 w-80 rounded-full bg-cyan-400/[0.025] blur-[130px]" />
 
-              <div>
-                <p className="text-lg leading-8 text-zinc-500">
-                  I'm a Computer Science undergraduate with a strong
-                  foundation in software development, machine learning, and
-                  problem-solving.
-                </p>
+          <div className="relative mx-auto max-w-7xl">
+            {/* Section heading */}
+            <div className="mb-14 flex items-center gap-4">
+              <span className="h-px w-10 bg-cyan-300/70" />
 
-                <p className="mt-6 text-lg leading-8 text-zinc-500">
-                  I have hands-on experience in full-stack development and
-                  machine learning, along with research experience in
-                  bioinformatics. I enjoy solving real-world problems and
-                  continuously learning emerging technologies.
-                </p>
+              <p className="text-sm uppercase tracking-[0.3em] text-cyan-400/70">
+                01 — About Me
+              </p>
+            </div>
 
-                {/* Updated: CGPA removed because it is already shown above */}
-                <div className="mt-8 grid max-w-md grid-cols-2 gap-4">
-                  <Stat value="3" label="Internships" />
-                  <Stat value="6" label="Projects" />
+            {/* Main About Layout */}
+            <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+              {/* LEFT — About Content */}
+              <motion.div
+                initial={{ opacity: 0, x: -25 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="group relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-white/[0.045] via-white/[0.02] to-transparent p-8 sm:p-10 lg:p-12"
+              >
+                {/* Decorative glow */}
+                <div className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-cyan-400/[0.06] blur-[80px] transition duration-700 group-hover:bg-cyan-400/[0.10]" />
+
+                {/* Decorative rings */}
+                <div className="absolute right-8 top-8 h-24 w-24 rounded-full border border-cyan-400/10" />
+
+                <div className="absolute right-14 top-14 h-12 w-12 rounded-full border border-cyan-400/10" />
+
+                <div className="relative">
+                  {/* Small label */}
+                  <div className="mb-10 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/[0.05] px-4 py-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 shadow-[0_0_10px_rgba(103,232,249,0.8)]" />
+
+                    <span className="text-xs uppercase tracking-[0.22em] text-cyan-300/80">
+                      Who I Am
+                    </span>
+                  </div>
+
+                  {/* Heading */}
+                  <h2 className="max-w-2xl text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+                    Building technology
+                    <br />
+                    with{" "}
+                    <span className="text-zinc-500">purpose.</span>
+                  </h2>
+
+                  {/* Divider */}
+                  <div className="my-10 h-px w-full bg-gradient-to-r from-cyan-400/20 via-white/10 to-transparent" />
+
+                  {/* About text */}
+                  <div className="max-w-2xl space-y-6">
+                    <p className="text-base leading-8 text-zinc-400 sm:text-lg">
+                      I'm a Computer Science undergraduate with a strong
+                      foundation in software development, machine learning,
+                      and problem-solving.
+                    </p>
+
+                    <p className="text-base leading-8 text-zinc-400 sm:text-lg">
+                      I have hands-on experience in full-stack development and
+                      machine learning, along with research experience in
+                      bioinformatics. I enjoy solving real-world problems and
+                      continuously learning emerging technologies.
+                    </p>
+                  </div>
+
+                  {/* Bottom tags */}
+                  <div className="mt-10 flex flex-wrap gap-2">
+                    <span className="rounded-full border border-white/10 bg-black/20 px-4 py-2 text-xs text-zinc-400">
+                      Software Development
+                    </span>
+
+                    <span className="rounded-full border border-white/10 bg-black/20 px-4 py-2 text-xs text-zinc-400">
+                      AI / ML
+                    </span>
+
+                    <span className="rounded-full border border-white/10 bg-black/20 px-4 py-2 text-xs text-zinc-400">
+                      Problem Solving
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* RIGHT SIDE */}
+              <div className="grid gap-6">
+                {/* Core Focus */}
+                <motion.div
+                  initial={{ opacity: 0, x: 25 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="group relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-cyan-400/[0.06] via-white/[0.025] to-transparent p-7 sm:p-8"
+                >
+                  {/* Glow */}
+                  <div className="absolute -right-20 -top-20 h-48 w-48 rounded-full bg-cyan-400/[0.08] blur-[70px]" />
+
+                  <div className="relative">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-cyan-400/20 bg-cyan-400/[0.06]">
+                          <Layers3
+                            size={17}
+                            className="text-cyan-300"
+                          />
+                        </div>
+
+                        <p className="text-xs uppercase tracking-[0.25em] text-zinc-500">
+                          Core Focus
+                        </p>
+                      </div>
+
+                      <Sparkles
+                        size={17}
+                        className="text-cyan-300/50"
+                      />
+                    </div>
+
+                    <div className="mt-7 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+                      {/* Focus 1 */}
+                      <div className="group/card rounded-2xl border border-white/10 bg-black/20 p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/30 hover:bg-cyan-400/[0.04]">
+                        <Code2
+                          size={18}
+                          className="text-cyan-300/80 transition group-hover/card:text-cyan-300"
+                        />
+
+                        <p className="mt-5 text-sm font-medium leading-5 text-zinc-200">
+                          Software
+                          <br />
+                          Development
+                        </p>
+                      </div>
+
+                      {/* Focus 2 */}
+                      <div className="group/card rounded-2xl border border-white/10 bg-black/20 p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/30 hover:bg-cyan-400/[0.04]">
+                        <Sparkles
+                          size={18}
+                          className="text-cyan-300/80 transition group-hover/card:text-cyan-300"
+                        />
+
+                        <p className="mt-5 text-sm font-medium leading-5 text-zinc-200">
+                          Machine
+                          <br />
+                          Learning
+                        </p>
+                      </div>
+
+                      {/* Focus 3 */}
+                      <div className="group/card rounded-2xl border border-white/10 bg-black/20 p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/30 hover:bg-cyan-400/[0.04]">
+                        <Award
+                          size={18}
+                          className="text-cyan-300/80 transition group-hover/card:text-cyan-300"
+                        />
+
+                        <p className="mt-5 text-sm font-medium leading-5 text-zinc-200">
+                          Problem
+                          <br />
+                          Solving
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Small statement */}
+                    <div className="mt-7 border-t border-white/10 pt-5">
+                      <p className="text-sm leading-6 text-zinc-500">
+                        Turning ideas into practical, scalable technology
+                        solutions.
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Stats */}
+                <div className="grid grid-cols-2 gap-6">
+                  {/* Internships */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    className="group relative overflow-hidden rounded-[2.5rem] border border-cyan-400/15 bg-gradient-to-br from-cyan-400/[0.08] via-white/[0.025] to-transparent p-7 sm:p-8"
+                  >
+                    <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-cyan-300/[0.08] blur-3xl transition duration-500 group-hover:bg-cyan-300/[0.15]" />
+
+                    <div className="relative">
+                      <div className="flex items-center justify-between">
+                        <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">
+                          Experience
+                        </p>
+
+                        <Briefcase
+                          size={17}
+                          className="text-cyan-300/60"
+                        />
+                      </div>
+
+                      <p className="mt-8 text-5xl font-semibold tracking-tight text-white sm:text-6xl">
+                        3
+                      </p>
+
+                      <p className="mt-2 text-sm text-zinc-500">
+                        Internships
+                      </p>
+
+                      <div className="mt-6 h-1 w-10 rounded-full bg-cyan-300/70 transition-all duration-500 group-hover:w-16" />
+                    </div>
+                  </motion.div>
+
+                  {/* Projects */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                    className="group relative overflow-hidden rounded-[2.5rem] border border-cyan-400/15 bg-gradient-to-br from-cyan-400/[0.08] via-white/[0.025] to-transparent p-7 sm:p-8"
+                  >
+                    <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-cyan-300/[0.08] blur-3xl transition duration-500 group-hover:bg-cyan-300/[0.15]" />
+
+                    <div className="relative">
+                      <div className="flex items-center justify-between">
+                        <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">
+                          Portfolio
+                        </p>
+
+                        <Code2
+                          size={17}
+                          className="text-cyan-300/60"
+                        />
+                      </div>
+
+                      <p className="mt-8 text-5xl font-semibold tracking-tight text-white sm:text-6xl">
+                        6
+                      </p>
+
+                      <p className="mt-2 text-sm text-zinc-500">
+                        Projects
+                      </p>
+
+                      <div className="mt-6 h-1 w-10 rounded-full bg-cyan-300/70 transition-all duration-500 group-hover:w-16" />
+                    </div>
+                  </motion.div>
                 </div>
               </div>
             </div>
@@ -467,7 +692,10 @@ function App() {
                   <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                     <div className="flex gap-5">
                       <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.06] text-cyan-300 sm:flex">
-                        <Briefcase size={20} className="text-zinc-400" />
+                        <Briefcase
+                          size={20}
+                          className="text-zinc-400"
+                        />
                       </div>
 
                       <div>
@@ -532,13 +760,14 @@ function App() {
                   transition={{ delay: index * 0.06 }}
                   className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.025] p-8 transition duration-500 hover:-translate-y-2 hover:border-cyan-400/25 hover:shadow-[0_25px_80px_rgba(0,0,0,0.35)] sm:p-10"
                 >
-                <div className="mb-8 overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/20">
+                  <div className="mb-8 overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/20">
                     <img
-                        src={project.image}
-                        alt={project.title}
-                        className="h-56 w-full object-cover transition duration-500 group-hover:scale-105"
+                      src={project.image}
+                      alt={project.title}
+                      className="h-56 w-full object-cover transition duration-500 group-hover:scale-105"
                     />
-                </div>
+                  </div>
+
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-zinc-600">
                       {project.number}
@@ -722,7 +951,9 @@ function App() {
                   <span className="flex h-5 w-5 items-center justify-center rounded bg-zinc-300 text-xs font-bold text-black">
                     in
                   </span>
+
                   <span>LinkedIn</span>
+
                   <ExternalLink size={15} className="ml-auto" />
                 </a>
 
@@ -733,7 +964,9 @@ function App() {
                   className="flex items-center gap-4 border-b border-white/10 py-5 text-zinc-300 transition hover:text-white"
                 >
                   <Code2 size={20} />
+
                   <span>HackerRank</span>
+
                   <ExternalLink size={15} className="ml-auto" />
                 </a>
               </div>
@@ -746,6 +979,7 @@ function App() {
       <footer className="border-t border-cyan-400/10 px-6 py-8">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 text-sm text-zinc-600 sm:flex-row sm:items-center sm:justify-between">
           <p>© 2026 Talla Satya Ganesh</p>
+
           <p>Built with React · Vite · Tailwind CSS</p>
         </div>
       </footer>
@@ -757,6 +991,7 @@ function Stat({ value, label }) {
   return (
     <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-5">
       <p className="text-2xl font-semibold text-white">{value}</p>
+
       <p className="mt-1 text-sm text-zinc-600">{label}</p>
     </div>
   );
@@ -774,20 +1009,31 @@ function EducationCard({
       <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex gap-5">
           <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.05] text-cyan-300 sm:flex">
-            <GraduationCap size={20} className="text-zinc-400" />
+            <GraduationCap
+              size={20}
+              className="text-zinc-400"
+            />
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold leading-7">{degree}</h3>
+            <h3 className="text-lg font-semibold leading-7">
+              {degree}
+            </h3>
 
-            <p className="mt-2 text-zinc-400">{institution}</p>
+            <p className="mt-2 text-zinc-400">
+              {institution}
+            </p>
 
-            <p className="mt-1 text-sm text-zinc-600">{location}</p>
+            <p className="mt-1 text-sm text-zinc-600">
+              {location}
+            </p>
           </div>
         </div>
 
         <div className="text-left sm:text-right">
-          <p className="text-sm text-zinc-600">{duration}</p>
+          <p className="text-sm text-zinc-600">
+            {duration}
+          </p>
 
           <p className="mt-2 text-sm font-medium text-zinc-300">
             {result}
