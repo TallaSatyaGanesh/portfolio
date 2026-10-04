@@ -1,17 +1,19 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-
 import {
   ArrowDown,
   ArrowUpRight,
+  Award,
   Briefcase,
+  CheckCircle2,
   Code2,
   ExternalLink,
   GraduationCap,
-  Mail,
-  MapPin,
-  Sparkles,
-  Award,
   Layers3,
+  Mail,
+  Menu,
+  Sparkles,
+  X,
 } from "lucide-react";
 
 import profileImage from "./assets/passport_image.jpeg";
@@ -99,8 +101,7 @@ const projects = [
   {
     number: "01",
     image: project01Image,
-    title:
-      "Vision-Based Assistive Perception System with Voice Assistance",
+    title: "Vision-Based Assistive Perception System with Voice Assistance",
     status: "Ongoing",
     description:
       "An AI-powered assistive perception system designed to support visually impaired users through real-time object detection, obstacle detection, scene understanding, and text recognition.",
@@ -126,7 +127,13 @@ const projects = [
     title: "Hub Gene Identification in Cervical Cancer",
     description:
       "An end-to-end machine learning project for identifying hub genes associated with cervical cancer using gene expression data and protein-protein interaction networks.",
-    tech: ["Python", "Scikit-learn", "Pandas", "NumPy", "STRING Database"],
+    tech: [
+      "Python",
+      "Scikit-learn",
+      "Pandas",
+      "NumPy",
+      "STRING Database",
+    ],
     details: [
       "Performed data preprocessing and feature selection to identify relevant gene expression features.",
       "Applied protein-protein interaction (PPI) network analysis.",
@@ -198,13 +205,19 @@ const projects = [
     title: "Agentic AI RFP Analysis & Proposal Response System",
     description:
       "An Agentic AI project focused on analyzing Requests for Proposals (RFPs) and supporting proposal response preparation.",
-    tech: ["Python", "Agentic AI", "RFP Analysis", "Proposal Responses"],
+    tech: [
+      "Python",
+      "Agentic AI",
+      "RFP Analysis",
+      "Proposal Responses",
+    ],
     details: [
       "Organizes RFP analysis into a workflow for understanding proposal requirements.",
       "Supports the preparation of proposal responses based on the RFP content.",
       "Designed as an AI-assisted tool for the proposal response process.",
     ],
-    github: "https://github.com/TallaSatyaGanesh/agentic-rfp-system",
+    github:
+      "https://github.com/TallaSatyaGanesh/agentic-rfp-system",
   },
 ];
 
@@ -217,1214 +230,1080 @@ const certifications = [
   "Employability Skills Certification – Wadhwani Skilling",
 ];
 
+const navItems = [
+  ["home", "Home", Sparkles],
+  ["about", "About Me", Layers3],
+  ["skills", "Skills", Code2],
+  ["experience", "Experience", Briefcase],
+  ["projects", "Projects", Code2],
+  ["education", "Education", GraduationCap],
+  ["certifications", "Certifications", Award],
+  ["contact", "Contact", Mail],
+];
+
 function App() {
+  const [active, setActive] = useState("home");
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const sections = navItems
+      .map(([id]) => document.getElementById(id))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort(
+            (a, b) => b.intersectionRatio - a.intersectionRatio
+          );
+
+        if (visible[0]) {
+          setActive(visible[0].target.id);
+        }
+      },
+      {
+        rootMargin: "-20% 0px -65% 0px",
+        threshold: [0.05, 0.2, 0.5],
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
+  const goTo = (id) => {
+    setMenuOpen(false);
+
+    document.getElementById(id)?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <div className="min-h-screen bg-[#02040a] text-white selection:bg-cyan-300 selection:text-black">
-      {/* Navigation */}
-      <nav className="fixed top-0 z-50 w-full border-b border-cyan-400/10 bg-[#05080d]/90 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-          <a
-            href="#"
-            className="text-xl font-bold tracking-tight transition hover:text-cyan-300"
-          >
-            TSG<span className="text-zinc-600">.</span>
-          </a>
+    <div className="min-h-screen bg-[#02060a] text-zinc-100 selection:bg-cyan-300 selection:text-black">
+      {/* Background Grid */}
+      <div
+        className="fixed inset-0 -z-10 opacity-[0.18]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)",
+          backgroundSize: "46px 46px",
+        }}
+      />
 
-          <div className="hidden items-center gap-8 text-sm text-zinc-400 md:flex">
-            <a href="#about" className="transition hover:text-cyan-300">
-              About
-            </a>
+      <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_70%_18%,rgba(34,211,238,0.09),transparent_30%),radial-gradient(circle_at_35%_70%,rgba(34,211,238,0.04),transparent_28%)]" />
 
-            <a href="#skills" className="transition hover:text-cyan-300">
-              Skills
-            </a>
-
-            <a
-              href="#experience"
-              className="transition hover:text-cyan-300"
-            >
-              Experience
-            </a>
-
-            <a href="#projects" className="transition hover:text-cyan-300">
-              Projects
-            </a>
-
-            <a
-              href="#education"
-              className="transition hover:text-cyan-300"
-            >
-              Education
-            </a>
+      {/* Desktop Sidebar */}
+      <aside className="fixed left-0 top-0 z-50 hidden h-screen w-[245px] border-r border-white/[0.08] bg-[#03070c]/95 px-4 py-6 backdrop-blur-2xl lg:flex lg:flex-col">
+        <div className="flex items-center gap-3 px-2">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-300/50 bg-cyan-300/[0.06] text-xl text-cyan-300 shadow-[0_0_25px_rgba(34,211,238,0.12)]">
+            ✦
           </div>
 
-          <a
-            href="#contact"
-            className="rounded-full border border-cyan-400/20 px-4 py-2 text-sm text-zinc-200 transition hover:border-cyan-400/50 hover:bg-cyan-400/10 hover:text-cyan-300"
-          >
-            Let's Talk
-          </a>
+          <div>
+            <p className="text-sm font-semibold tracking-wide">
+              Satya Ganesh Talla
+            </p>
+
+            <p className="mt-1 text-[8px] uppercase tracking-[0.25em] text-zinc-600">
+              The Portfolio / 2026
+            </p>
+          </div>
         </div>
-      </nav>
 
-      {/* Hero */}
-      <main>
-        <section className="relative flex min-h-screen items-center overflow-hidden px-6 pt-24">
-          <div className="absolute left-1/2 top-1/2 -z-10 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/[0.055] blur-[120px]" />
+        <div className="mt-9 rounded-xl border border-white/[0.08] bg-white/[0.025] p-4">
+          <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-cyan-300">
+            Currently exploring
+          </p>
 
-          <div className="mx-auto grid w-full max-w-7xl items-center gap-16 lg:grid-cols-[1.2fr_0.8fr]">
-            {/* Hero Content */}
+          <p className="mt-3 text-sm font-medium leading-5 text-zinc-200">
+            Building at the intersection of code & intelligence.
+          </p>
+
+          <p className="mt-4 text-[9px] text-zinc-600">
+            B.Tech CSE · AI / ML
+          </p>
+        </div>
+
+        <p className="mt-9 px-2 text-[9px] font-semibold uppercase tracking-[0.25em] text-zinc-600">
+          Explore
+        </p>
+
+        <nav className="mt-3 space-y-1">
+          {navItems.map(([id, label, Icon]) => (
+            <button
+              key={id}
+              onClick={() => goTo(id)}
+              className={`group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-xs transition ${
+                active === id
+                  ? "bg-cyan-400/[0.12] text-cyan-300"
+                  : "text-zinc-500 hover:bg-white/[0.035] hover:text-zinc-200"
+              }`}
+            >
+              <Icon size={14} />
+
+              <span>{label}</span>
+
+              {active === id && (
+                <span className="ml-auto h-1.5 w-1.5 rounded-full bg-cyan-300 shadow-[0_0_10px_rgba(103,232,249,0.9)]" />
+              )}
+            </button>
+          ))}
+        </nav>
+
+        <div className="mt-auto border-t border-white/[0.08] pt-5">
+          <div className="flex items-center gap-2 px-2 text-[10px] font-medium text-zinc-300">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_9px_rgba(52,211,153,0.9)]" />
+            Open to opportunities
+          </div>
+
+          <p className="mt-5 px-2 text-[8px] uppercase tracking-[0.25em] text-zinc-600">
+            Let's build something
+          </p>
+        </div>
+      </aside>
+
+      {/* Mobile Header */}
+      <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/[0.08] bg-[#03070c]/85 px-5 py-4 backdrop-blur-xl lg:hidden">
+        <div className="flex items-center justify-between">
+          <button
+            onClick={() => goTo("home")}
+            className="text-sm font-semibold"
+          >
+            SGT<span className="text-cyan-300">.</span>
+          </button>
+
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="rounded-lg border border-white/10 p-2 text-zinc-300"
+          >
+            {menuOpen ? <X size={19} /> : <Menu size={19} />}
+          </button>
+        </div>
+
+        {menuOpen && (
+          <div className="mt-4 space-y-1 border-t border-white/10 pt-3">
+            {navItems.map(([id, label]) => (
+              <button
+                key={id}
+                onClick={() => goTo(id)}
+                className="block w-full rounded-lg px-3 py-2 text-left text-sm text-zinc-400 hover:bg-white/5 hover:text-white"
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        )}
+      </header>
+
+      <main className="lg:pl-[245px]">
+
+        {/* HERO */}
+        <section
+          id="home"
+          className="relative flex min-h-screen items-center overflow-hidden px-6 pb-20 pt-28 sm:px-10 lg:px-14 lg:pt-16"
+        >
+          <div className="mx-auto grid w-full max-w-[1380px] items-center gap-10 xl:grid-cols-[1fr_1fr]">
+
+            {/* Hero Text */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -25 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7 }}
             >
-              <p className="mb-6 text-sm uppercase tracking-[0.3em] text-zinc-500">
-                Computer Science Engineer
+              <div className="mb-7 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-emerald-400">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.9)]" />
+                Available for work
+              </div>
+
+              <p className="text-[9px] uppercase tracking-[0.3em] text-cyan-300/70">
+                Welcome to my portfolio
               </p>
 
-              <h1 className="max-w-4xl text-5xl font-bold leading-[1.05] tracking-tight sm:text-7xl lg:text-8xl">
-                Talla Satya{" "}
-                <span className="text-zinc-500">Ganesh.</span>
+              <h1 className="mt-5 max-w-4xl text-5xl font-semibold leading-[0.94] tracking-[-0.05em] sm:text-7xl xl:text-[6.3rem]">
+                Hey, I'm
+                <br />
+                <span className="text-cyan-300">
+                  Satya Ganesh
+                </span>
+                <br />
+                Talla
+                <span className="text-zinc-600">.</span>
               </h1>
 
-              <h2 className="mt-7 max-w-3xl text-2xl font-medium text-zinc-300 sm:text-3xl">
-                Computer Science Engineer | AI/ML & Software Developer 🚀
-              </h2>
+              <div className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-medium text-zinc-300">
+                <span>Software Developer</span>
+                <span className="text-cyan-300">/</span>
+                <span>AI / ML</span>
+                <span className="text-cyan-300">/</span>
+                <span>Problem Solver</span>
+              </div>
 
-              <p className="mt-7 max-w-2xl text-base leading-8 text-zinc-500 sm:text-lg">
+              <p className="mt-6 max-w-xl text-sm leading-7 text-zinc-500 sm:text-base">
                 Computer Science undergraduate with a strong foundation in
                 software development, machine learning, and problem-solving.
                 Passionate about building practical and scalable technology
                 solutions.
               </p>
 
-              <div className="mt-10 flex flex-wrap gap-4">
-                <a
-                  href="#projects"
-                  className="group flex items-center gap-2 rounded-full bg-cyan-300 px-6 py-3 font-medium text-black transition hover:bg-cyan-200 hover:shadow-[0_0_35px_rgba(34,211,238,0.18)]"
+              <div className="mt-8 flex flex-wrap gap-3">
+                <button
+                  onClick={() => goTo("projects")}
+                  className="group inline-flex items-center gap-2 rounded-md bg-cyan-300 px-5 py-3 text-sm font-semibold text-black transition hover:bg-cyan-200"
                 >
-                  View My Projects
-
+                  Explore my work
                   <ArrowUpRight
-                    size={18}
-                    className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+                    size={16}
+                    className="transition group-hover:translate-x-1 group-hover:-translate-y-1"
                   />
-                </a>
+                </button>
 
-                <a
-                  href="#contact"
-                  className="rounded-full border border-cyan-400/20 px-6 py-3 font-medium text-zinc-200 transition hover:border-cyan-400/50 hover:bg-cyan-400/10"
+                <button
+                  onClick={() => goTo("contact")}
+                  className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/[0.025] px-5 py-3 text-sm font-medium text-zinc-200 hover:border-cyan-300/30 hover:text-cyan-200"
                 >
-                  Contact Me
-                </a>
+                  Let's connect
+                </button>
               </div>
 
-              <div className="mt-10 flex flex-wrap gap-6 text-sm text-zinc-500">
-                <span className="flex items-center gap-2">
-                  <Code2 size={16} />
-                  Python · Java · SQL
-                </span>
-
-                <span className="flex items-center gap-2">
-                  <MapPin size={16} />
-                  Andhra Pradesh, India
-                </span>
+              <div className="mt-8 flex flex-wrap gap-2">
+                {[
+                  "Python",
+                  "Java",
+                  "JavaScript",
+                  "SQL",
+                  "AI / ML",
+                  "GitHub",
+                ].map((x) => (
+                  <span
+                    key={x}
+                    className="rounded border border-white/[0.08] bg-white/[0.02] px-2.5 py-1.5 text-[10px] text-zinc-500"
+                  >
+                    {x}
+                  </span>
+                ))}
               </div>
             </motion.div>
 
-            {/* Profile Image */}
+            {/* HERO CIRCLE */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.15 }}
-              className="flex justify-center lg:justify-end"
+              transition={{ duration: 0.9, delay: 0.1 }}
+              className="relative mx-auto flex h-[620px] w-full max-w-[680px] items-center justify-center"
             >
-              <div className="relative">
-                <div className="absolute -inset-5 rounded-[2.5rem] border border-cyan-400/20 shadow-[0_0_80px_rgba(34,211,238,0.10)]" />
+              <div className="pointer-events-none absolute h-[470px] w-[470px] rounded-full bg-cyan-400/[0.055] blur-[110px]" />
 
-                <div className="relative overflow-hidden rounded-[2.2rem] border border-cyan-400/20 bg-white/[0.04] shadow-[0_0_100px_rgba(34,211,238,0.12)] transition duration-500 hover:scale-[1.02]">
-                  <img
-                    src={profileImage}
-                    alt="Talla Satya Ganesh"
-                    className="h-[420px] w-[340px] object-cover sm:h-[500px] sm:w-[400px]"
-                  />
-                </div>
+              <div className="pointer-events-none absolute h-[300px] w-[300px] rounded-full bg-cyan-300/[0.045] blur-[70px]" />
 
-                <div className="absolute -bottom-6 -left-6 rounded-2xl border border-white/10 bg-[#0a1118]/95 px-5 py-4 backdrop-blur-xl">
-                  <p className="text-xs uppercase tracking-widest text-cyan-400/60">
-                    Currently
-                  </p>
+              <div className="absolute h-[535px] w-[535px] rounded-full border border-dashed border-cyan-300/[0.16]" />
 
-                  <p className="mt-1 text-sm font-medium text-zinc-200">
-                    B.Tech CSE · 2023–2027
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          </div>
+              <div className="absolute h-[505px] w-[505px] animate-[spin_32s_linear_infinite] rounded-full border border-dashed border-white/[0.09]" />
 
-          <motion.a
-            href="#about"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 text-zinc-600 transition hover:text-white"
-          >
-            <ArrowDown className="animate-bounce" />
-          </motion.a>
-        </section>
+              <div className="absolute h-[475px] w-[475px] animate-[spin_42s_linear_infinite_reverse] rounded-full border border-cyan-300/[0.06]" />
 
-        {/* About */}
-        <section
-          id="about"
-          className="relative overflow-hidden border-t border-white/10 px-6 py-32"
-        >
-          {/* Ambient background glow */}
-          <div className="pointer-events-none absolute left-[5%] top-20 h-72 w-72 rounded-full bg-cyan-400/[0.035] blur-[120px]" />
+              <div className="absolute h-[440px] w-[440px] rounded-full border border-white/[0.08]" />
 
-          <div className="pointer-events-none absolute bottom-0 right-[8%] h-80 w-80 rounded-full bg-cyan-400/[0.025] blur-[130px]" />
+              <div className="absolute h-[390px] w-[390px] rounded-full border border-cyan-300/[0.11]" />
 
-          <div className="relative mx-auto max-w-7xl">
-            {/* Section heading */}
-            <div className="mb-14 flex items-center gap-4">
-              <span className="h-px w-10 bg-cyan-300/70" />
+              <div className="absolute h-[335px] w-[335px] rounded-full border border-cyan-300/[0.15]" />
 
-              <p className="text-sm uppercase tracking-[0.3em] text-cyan-400/70">
-                01 — About Me
-              </p>
-            </div>
+              <div className="absolute h-[275px] w-[275px] rounded-full border border-cyan-300/[0.20] shadow-[0_0_90px_rgba(34,211,238,0.10)]" />
 
-            {/* Main About Layout */}
-            <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
-              {/* LEFT — About Content */}
-              <motion.div
-                initial={{ opacity: 0, x: -25 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="group relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-white/[0.045] via-white/[0.02] to-transparent p-8 sm:p-10 lg:p-12"
-              >
-                <div className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-cyan-400/[0.06] blur-[80px] transition duration-700 group-hover:bg-cyan-400/[0.10]" />
+              <span className="absolute left-[18%] top-[31%] h-1.5 w-1.5 rounded-full bg-cyan-300 shadow-[0_0_15px_rgba(34,211,238,1)]" />
 
-                <div className="absolute right-8 top-8 h-24 w-24 rounded-full border border-cyan-400/10" />
+              <span className="absolute right-[18%] top-[29%] h-1 w-1 rounded-full bg-cyan-300 shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
 
-                <div className="absolute right-14 top-14 h-12 w-12 rounded-full border border-cyan-400/10" />
+              <span className="absolute bottom-[28%] left-[19%] h-1 w-1 rounded-full bg-cyan-300/80" />
+
+              <span className="absolute bottom-[25%] right-[19%] h-1.5 w-1.5 rounded-full bg-cyan-300 shadow-[0_0_12px_rgba(34,211,238,0.9)]" />
+
+              <span className="absolute left-1/2 top-[11%] h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-cyan-300 shadow-[0_0_12px_rgba(34,211,238,0.8)]" />
+
+              <span className="absolute bottom-[11%] left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-cyan-300/70" />
+
+              {[
+                {
+                  label: "Projects",
+                  target: "projects",
+                  icon: Code2,
+                  angle: -90,
+                },
+                {
+                  label: "Skills",
+                  target: "skills",
+                  icon: Sparkles,
+                  angle: -54,
+                },
+                {
+                  label: "Education",
+                  target: "education",
+                  icon: GraduationCap,
+                  angle: -18,
+                },
+                {
+                  label: "Experience",
+                  target: "experience",
+                  icon: Briefcase,
+                  angle: 18,
+                },
+                {
+                  label: "Certifications",
+                  target: "certifications",
+                  icon: Award,
+                  angle: 54,
+                },
+                {
+                  label: "Contact",
+                  target: "contact",
+                  icon: Mail,
+                  angle: 90,
+                },
+                {
+                  label: "About",
+                  target: "about",
+                  icon: Layers3,
+                  angle: 126,
+                },
+                {
+                  label: "GitHub",
+                  target: "projects",
+                  icon: Code2,
+                  angle: 162,
+                },
+                {
+                  label: "AI / ML",
+                  target: "skills",
+                  icon: Sparkles,
+                  angle: 198,
+                },
+                {
+                  label: "Resume",
+                  target: "contact",
+                  icon: ExternalLink,
+                  angle: 234,
+                },
+              ].map((node) => {
+                const radius = 268;
+                const angle = (node.angle * Math.PI) / 180;
+
+                const x = Math.cos(angle) * radius;
+                const y = Math.sin(angle) * radius;
+
+                const Icon = node.icon;
+
+                return (
+                  <button
+                    key={node.label}
+                    onClick={() => goTo(node.target)}
+                    style={{
+                      transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
+                    }}
+                    className="group absolute left-1/2 top-1/2 z-20 flex h-[62px] w-[62px] flex-col items-center justify-center rounded-full border border-white/[0.12] bg-[#071018]/95 text-zinc-500 shadow-[0_12px_40px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-all duration-300 hover:scale-110 hover:border-cyan-300/60 hover:bg-cyan-300/[0.08] hover:text-cyan-300"
+                  >
+                    <Icon size={16} />
+
+                    <span className="mt-1 text-[7px] leading-none">
+                      {node.label}
+                    </span>
+
+                    <span className="pointer-events-none absolute -inset-1 rounded-full opacity-0 shadow-[0_0_30px_rgba(34,211,238,0.45)] transition group-hover:opacity-100" />
+                  </button>
+                );
+              })}
+
+              {/* Central Profile */}
+              <div className="relative z-30 flex h-[205px] w-[205px] flex-col items-center justify-center rounded-full border border-cyan-300/70 bg-[#061018] shadow-[0_0_100px_rgba(34,211,238,0.20),inset_0_0_60px_rgba(34,211,238,0.05)]">
+                <div className="pointer-events-none absolute inset-[8px] rounded-full border border-cyan-300/25" />
+
+                <div className="pointer-events-none absolute inset-[18px] rounded-full border border-white/[0.06]" />
+
+                <div className="pointer-events-none absolute inset-[29px] rounded-full border border-cyan-300/[0.08]" />
+
+                <div className="absolute -inset-2 rounded-full bg-cyan-300/[0.08] blur-xl" />
 
                 <div className="relative">
-                  <div className="mb-10 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/[0.05] px-4 py-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 shadow-[0_0_10px_rgba(103,232,249,0.8)]" />
+                  <div className="absolute -inset-3 rounded-full bg-cyan-300/10 blur-md" />
 
-                    <span className="text-xs uppercase tracking-[0.22em] text-cyan-300/80">
-                      Who I Am
-                    </span>
-                  </div>
-
-                  <h2 className="max-w-2xl text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
-                    Building technology
-                    <br />
-                    with <span className="text-zinc-500">purpose.</span>
-                  </h2>
-
-                  <div className="my-10 h-px w-full bg-gradient-to-r from-cyan-400/20 via-white/10 to-transparent" />
-
-                  <div className="max-w-2xl space-y-6">
-                    <p className="text-base leading-8 text-zinc-400 sm:text-lg">
-                      I'm a Computer Science undergraduate with a strong
-                      foundation in software development, machine learning,
-                      and problem-solving.
-                    </p>
-
-                    <p className="text-base leading-8 text-zinc-400 sm:text-lg">
-                      I have hands-on experience in full-stack development and
-                      machine learning, along with research experience in
-                      bioinformatics. I enjoy solving real-world problems and
-                      continuously learning emerging technologies.
-                    </p>
-                  </div>
-
-                  <div className="mt-10 flex flex-wrap gap-2">
-                    <span className="rounded-full border border-white/10 bg-black/20 px-4 py-2 text-xs text-zinc-400">
-                      Software Development
-                    </span>
-
-                    <span className="rounded-full border border-white/10 bg-black/20 px-4 py-2 text-xs text-zinc-400">
-                      AI / ML
-                    </span>
-
-                    <span className="rounded-full border border-white/10 bg-black/20 px-4 py-2 text-xs text-zinc-400">
-                      Problem Solving
-                    </span>
-                  </div>
+                  <img
+                    src={profileImage}
+                    alt="Satya Ganesh Talla"
+                    className="relative h-[72px] w-[72px] rounded-full border border-cyan-300/60 object-cover shadow-[0_0_25px_rgba(34,211,238,0.18)]"
+                  />
                 </div>
-              </motion.div>
 
-              {/* RIGHT SIDE */}
-              <div className="grid gap-6">
-                <motion.div
-                  initial={{ opacity: 0, x: 25 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.1 }}
-                  className="group relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-cyan-400/[0.06] via-white/[0.025] to-transparent p-7 sm:p-8"
-                >
-                  <div className="absolute -right-20 -top-20 h-48 w-48 rounded-full bg-cyan-400/[0.08] blur-[70px]" />
+                <p className="mt-3 text-center text-[15px] font-semibold leading-5 text-white">
+                  Satya Ganesh
+                  <br />
+                  Talla<span className="text-cyan-300">.</span>
+                </p>
 
-                  <div className="relative">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-cyan-400/20 bg-cyan-400/[0.06]">
-                          <Layers3
-                            size={17}
-                            className="text-cyan-300"
-                          />
-                        </div>
+                <p className="mt-1 text-[7px] uppercase tracking-[0.24em] text-cyan-300">
+                  AI / ML · Developer
+                </p>
 
-                        <p className="text-xs uppercase tracking-[0.25em] text-zinc-500">
-                          Core Focus
-                        </p>
-                      </div>
+                <div className="mt-3 flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_9px_rgba(52,211,153,0.9)]" />
 
-                      <Sparkles
-                        size={17}
-                        className="text-cyan-300/50"
-                      />
-                    </div>
-
-                    <div className="mt-7 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
-                      <div className="group/card rounded-2xl border border-white/10 bg-black/20 p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/30 hover:bg-cyan-400/[0.04]">
-                        <Code2
-                          size={18}
-                          className="text-cyan-300/80 transition group-hover/card:text-cyan-300"
-                        />
-
-                        <p className="mt-5 text-sm font-medium leading-5 text-zinc-200">
-                          Software
-                          <br />
-                          Development
-                        </p>
-                      </div>
-
-                      <div className="group/card rounded-2xl border border-white/10 bg-black/20 p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/30 hover:bg-cyan-400/[0.04]">
-                        <Sparkles
-                          size={18}
-                          className="text-cyan-300/80 transition group-hover/card:text-cyan-300"
-                        />
-
-                        <p className="mt-5 text-sm font-medium leading-5 text-zinc-200">
-                          Machine
-                          <br />
-                          Learning
-                        </p>
-                      </div>
-
-                      <div className="group/card rounded-2xl border border-white/10 bg-black/20 p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/30 hover:bg-cyan-400/[0.04]">
-                        <Award
-                          size={18}
-                          className="text-cyan-300/80 transition group-hover/card:text-cyan-300"
-                        />
-
-                        <p className="mt-5 text-sm font-medium leading-5 text-zinc-200">
-                          Problem
-                          <br />
-                          Solving
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mt-7 border-t border-white/10 pt-5">
-                      <p className="text-sm leading-6 text-zinc-500">
-                        Turning ideas into practical, scalable technology
-                        solutions.
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-
-                <div className="grid grid-cols-2 gap-6">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    className="group relative overflow-hidden rounded-[2.5rem] border border-cyan-400/15 bg-gradient-to-br from-cyan-400/[0.08] via-white/[0.025] to-transparent p-7 sm:p-8"
-                  >
-                    <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-cyan-300/[0.08] blur-3xl transition duration-500 group-hover:bg-cyan-300/[0.15]" />
-
-                    <div className="relative">
-                      <div className="flex items-center justify-between">
-                        <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">
-                          Experience
-                        </p>
-
-                        <Briefcase
-                          size={17}
-                          className="text-cyan-300/60"
-                        />
-                      </div>
-
-                      <p className="mt-8 text-5xl font-semibold tracking-tight text-white sm:text-6xl">
-                        3
-                      </p>
-
-                      <p className="mt-2 text-sm text-zinc-500">
-                        Internships
-                      </p>
-
-                      <div className="mt-6 h-1 w-10 rounded-full bg-cyan-300/70 transition-all duration-500 group-hover:w-16" />
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    className="group relative overflow-hidden rounded-[2.5rem] border border-cyan-400/15 bg-gradient-to-br from-cyan-400/[0.08] via-white/[0.025] to-transparent p-7 sm:p-8"
-                  >
-                    <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-cyan-300/[0.08] blur-3xl transition duration-500 group-hover:bg-cyan-300/[0.15]" />
-
-                    <div className="relative">
-                      <div className="flex items-center justify-between">
-                        <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">
-                          Portfolio
-                        </p>
-
-                        <Code2
-                          size={17}
-                          className="text-cyan-300/60"
-                        />
-                      </div>
-
-                      <p className="mt-8 text-5xl font-semibold tracking-tight text-white sm:text-6xl">
-                        6
-                      </p>
-
-                      <p className="mt-2 text-sm text-zinc-500">
-                        Projects
-                      </p>
-
-                      <div className="mt-6 h-1 w-10 rounded-full bg-cyan-300/70 transition-all duration-500 group-hover:w-16" />
-                    </div>
-                  </motion.div>
+                  <span className="text-[6px] uppercase tracking-[0.2em] text-zinc-600">
+                    Available
+                  </span>
                 </div>
               </div>
-            </div>
+
+              <div className="absolute left-[8%] top-[19%] rounded-full border border-white/[0.08] bg-[#061018]/85 px-3 py-1.5 text-[7px] uppercase tracking-[0.17em] text-zinc-500 backdrop-blur">
+                Python
+              </div>
+
+              <div className="absolute right-[7%] top-[18%] rounded-full border border-white/[0.08] bg-[#061018]/85 px-3 py-1.5 text-[7px] uppercase tracking-[0.17em] text-zinc-500 backdrop-blur">
+                Java
+              </div>
+
+              <div className="absolute bottom-[16%] left-[9%] rounded-full border border-white/[0.08] bg-[#061018]/85 px-3 py-1.5 text-[7px] uppercase tracking-[0.17em] text-zinc-500 backdrop-blur">
+                ML
+              </div>
+
+              <div className="absolute bottom-[15%] right-[8%] rounded-full border border-white/[0.08] bg-[#061018]/85 px-3 py-1.5 text-[7px] uppercase tracking-[0.17em] text-zinc-500 backdrop-blur">
+                SQL
+              </div>
+
+              <span className="absolute left-[21%] top-1/2 h-1 w-1 -translate-y-1/2 rounded-full bg-cyan-300/70" />
+
+              <span className="absolute right-[21%] top-1/2 h-1 w-1 -translate-y-1/2 rounded-full bg-cyan-300/70" />
+
+              <div className="absolute bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap text-[8px] uppercase tracking-[0.3em] text-zinc-600">
+                Explore my profile
+                <span className="ml-2 text-cyan-300">↗</span>
+              </div>
+            </motion.div>
           </div>
+
+          <button
+            onClick={() => goTo("about")}
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 text-zinc-600 hover:text-cyan-300"
+          >
+            <ArrowDown size={18} className="animate-bounce" />
+          </button>
         </section>
 
-        {/* Skills */}
-        <section
-          id="skills"
-          className="relative overflow-hidden border-t border-white/10 px-6 py-32"
+        {/* ABOUT */}
+        <SectionShell
+          id="about"
+          number="01 / 07"
+          eyebrow="About Me"
+          title="About Me"
+          subtitle="A little more about my background, interests, and technical journey."
         >
-          <div className="pointer-events-none absolute left-[8%] top-20 h-72 w-72 rounded-full bg-cyan-400/[0.035] blur-[120px]" />
+          <div className="grid gap-5 xl:grid-cols-[1.15fr_0.85fr]">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="rounded-2xl border border-white/[0.08] bg-[#061018]/75 p-7 sm:p-10"
+            >
+              <p className="text-4xl text-cyan-300/40">“</p>
 
-          <div className="pointer-events-none absolute bottom-0 right-[5%] h-80 w-80 rounded-full bg-cyan-400/[0.025] blur-[130px]" />
-
-          <div className="relative mx-auto max-w-7xl">
-            <div className="mb-14 flex items-center gap-4">
-              <span className="h-px w-10 bg-cyan-300/70" />
-
-              <p className="text-sm uppercase tracking-[0.3em] text-cyan-400/70">
-                02 — Skills
+              <p className="mt-2 max-w-3xl text-xl leading-9 text-zinc-200 sm:text-2xl">
+                I'm a Computer Science undergraduate with a strong foundation
+                in software development, machine learning, and problem-solving.
+                I have hands-on experience in full-stack development and
+                machine learning, along with research experience in
+                bioinformatics.
               </p>
-            </div>
 
-            <div className="grid gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-end">
-              <div>
-                <h2 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-                  Technologies I{" "}
-                  <span className="text-zinc-500">work with.</span>
-                </h2>
+              <p className="mt-7 max-w-2xl text-sm leading-7 text-zinc-500">
+                I enjoy solving real-world problems and continuously learning
+                emerging technologies.
+              </p>
+
+              <div className="mt-8 flex flex-wrap gap-2">
+                {[
+                  "Software Development",
+                  "AI / ML",
+                  "Problem Solving",
+                ].map((x) => (
+                  <span
+                    key={x}
+                    className="rounded border border-cyan-300/10 bg-cyan-300/[0.03] px-3 py-2 text-xs text-zinc-400"
+                  >
+                    {x}
+                  </span>
+                ))}
               </div>
+            </motion.div>
 
-              <p className="max-w-md text-base leading-7 text-zinc-500 lg:justify-self-end">
-                A practical toolkit built through software development,
-                machine learning, database work, and hands-on project
-                experience.
-              </p>
-            </div>
-
-            <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {skills.map((skill, index) => (
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
+              {[
+                "Software Development",
+                "Machine Learning",
+                "Problem Solving",
+                "Real-world Applications",
+              ].map((x, i) => (
                 <motion.div
-                  key={skill.category}
-                  initial={{ opacity: 0, y: 25 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  key={x}
+                  initial={{ opacity: 0, x: 15 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{
-                    delay: index * 0.08,
-                    duration: 0.5,
-                  }}
-                  className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.045] via-white/[0.02] to-transparent p-7 transition duration-500 hover:-translate-y-2 hover:border-cyan-400/25 hover:shadow-[0_20px_60px_rgba(0,0,0,0.3)] sm:p-8"
+                  transition={{ delay: i * 0.08 }}
+                  className="group rounded-2xl border border-white/[0.08] bg-white/[0.018] p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/25 hover:bg-cyan-300/[0.035]"
                 >
-                  <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-cyan-400/[0.06] blur-[60px] transition duration-500 group-hover:bg-cyan-400/[0.12]" />
+                  <div className="flex items-center justify-between">
+                    <span className="text-[9px] font-semibold text-cyan-300">
+                      0{i + 1}
+                    </span>
 
-                  <div className="relative">
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <p className="text-xs uppercase tracking-[0.2em] text-cyan-400/60">
-                          0{index + 1}
-                        </p>
-
-                        <h3 className="mt-3 text-xl font-semibold tracking-tight text-white">
-                          {skill.category}
-                        </h3>
-                      </div>
-
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-cyan-400/15 bg-cyan-400/[0.05] text-sm font-medium text-cyan-300/70 transition duration-300 group-hover:border-cyan-400/30 group-hover:bg-cyan-400/[0.09] group-hover:text-cyan-300">
-                        {String(index + 1).padStart(2, "0")}
-                      </div>
-                    </div>
-
-                    <div className="my-6 h-px w-full bg-gradient-to-r from-cyan-400/20 via-white/10 to-transparent" />
-
-                    <div className="flex flex-wrap gap-2">
-                      {skill.items.map((item) => (
-                        <span
-                          key={item}
-                          className="rounded-full border border-white/10 bg-black/20 px-3.5 py-2 text-sm text-zinc-400 transition duration-300 hover:border-cyan-400/30 hover:bg-cyan-400/[0.05] hover:text-cyan-200"
-                        >
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="mt-7 h-1 w-8 rounded-full bg-cyan-300/60 transition-all duration-500 group-hover:w-14" />
+                    <ArrowUpRight
+                      size={14}
+                      className="text-zinc-600 group-hover:text-cyan-300"
+                    />
                   </div>
+
+                  <p className="mt-7 text-sm font-medium text-zinc-200">
+                    {x}
+                  </p>
+
+                  <p className="mt-2 text-xs leading-5 text-zinc-600">
+                    Turning ideas into useful working technology.
+                  </p>
                 </motion.div>
               ))}
             </div>
           </div>
-        </section>
 
-        {/* Experience */}
-<section
-  id="experience"
-  className="relative overflow-hidden border-t border-white/10 px-6 py-32"
->
-  {/* Background glow */}
-  <div className="pointer-events-none absolute left-[-8%] top-24 h-80 w-80 rounded-full bg-cyan-400/[0.035] blur-[130px]" />
-  <div className="pointer-events-none absolute bottom-20 right-[-5%] h-96 w-96 rounded-full bg-cyan-400/[0.025] blur-[140px]" />
+          <div className="mt-5 grid gap-3 sm:grid-cols-3">
+            <Metric value="3" label="Internships" />
+            <Metric value="6" label="Projects" />
+            <Metric value="7.96" label="CGPA / 10" />
+          </div>
+        </SectionShell>
 
-  <div className="relative mx-auto max-w-7xl">
-    {/* Section label */}
-    <div className="mb-14 flex items-center gap-4">
-      <span className="h-px w-10 bg-cyan-300/70" />
+        {/* SKILLS */}
+        <SectionShell
+          id="skills"
+          number="02 / 07"
+          eyebrow="Skills"
+          title="Skills"
+          subtitle="A practical collection of technologies built through projects, research, and hands-on development."
+        >
+          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+            {skills.map((skill, i) => (
+              <motion.div
+                key={skill.category}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.06 }}
+                className="group min-h-[190px] rounded-xl border border-white/[0.08] bg-[#061018]/70 p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/25"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-[9px] font-bold text-cyan-300">
+                    0{i + 1}
+                  </span>
 
-      <p className="text-sm uppercase tracking-[0.3em] text-cyan-400/70">
-        03 — Experience
-      </p>
-    </div>
+                  <Code2 size={15} className="text-cyan-300/60" />
+                </div>
 
-    {/* Heading */}
-    <div className="grid gap-8 lg:grid-cols-[1fr_0.7fr] lg:items-end">
-      <div>
-        <h2 className="max-w-4xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-          Experience that{" "}
-          <span className="text-zinc-500">shaped my skills.</span>
-        </h2>
-      </div>
+                <h3 className="mt-4 text-lg font-medium">
+                  {skill.category}
+                </h3>
 
-      <p className="max-w-md text-base leading-7 text-zinc-500 lg:justify-self-end">
-        Hands-on experience across research, full-stack development,
-        Salesforce, and real-world technology projects.
-      </p>
-    </div>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {skill.items.map((item) => (
+                    <span
+                      key={item}
+                      className="rounded border border-white/[0.08] px-2.5 py-1.5 text-[10px] text-zinc-500 transition group-hover:text-zinc-300"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </SectionShell>
 
-    {/* Experience timeline */}
-    <div className="relative mt-16">
-      {/* Timeline line */}
-      <div className="absolute left-[19px] top-4 hidden h-[calc(100%-2rem)] w-px bg-gradient-to-b from-cyan-400/40 via-white/10 to-transparent md:block" />
+        {/* EXPERIENCE */}
+        <SectionShell
+          id="experience"
+          number="03 / 07"
+          eyebrow="Experience"
+          title="Experience"
+          subtitle="Hands-on experience across research, full-stack development, and Salesforce."
+        >
+          <div className="relative border-l border-cyan-300/15 pl-7 sm:pl-10">
+            {internships.map((item, i) => (
+              <motion.div
+                key={item.role}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="relative mb-6 last:mb-0"
+              >
+                <span className="absolute -left-[34px] top-7 h-3 w-3 rounded-full border border-cyan-300 bg-cyan-300 shadow-[0_0_15px_rgba(34,211,238,0.65)] sm:-left-[49px]" />
 
-      <div className="space-y-7">
-        {internships.map((internship, index) => (
-          <motion.div
-            key={internship.role}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              delay: index * 0.1,
-              duration: 0.55,
-            }}
-            className="group relative md:pl-16"
-          >
-            {/* Timeline dot */}
-            <div className="absolute left-[11px] top-8 hidden h-[17px] w-[17px] rounded-full border-4 border-[#09090b] bg-cyan-300 shadow-[0_0_18px_rgba(103,232,249,0.45)] md:block" />
-
-            {/* Experience card */}
-            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.045] via-white/[0.02] to-transparent p-7 transition duration-500 hover:-translate-y-1 hover:border-cyan-400/25 hover:shadow-[0_25px_80px_rgba(0,0,0,0.3)] sm:p-9">
-              {/* Hover glow */}
-              <div className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-cyan-400/[0.045] blur-[70px] transition duration-500 group-hover:bg-cyan-400/[0.1]" />
-
-              <div className="relative">
-                {/* Top row */}
-                <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-                  <div className="flex gap-5">
-                    {/* Icon */}
-                    <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.06] text-cyan-300 sm:flex">
-                      <Briefcase
-                        size={20}
-                        className="transition duration-300 group-hover:text-cyan-200"
-                      />
-                    </div>
-
+                <div className="rounded-2xl border border-white/[0.08] bg-[#061018]/70 p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/25 sm:p-8">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                     <div>
-                      {/* Number */}
-                      <p className="text-xs uppercase tracking-[0.25em] text-cyan-400/55">
-                        0{index + 1} — Internship
+                      <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-cyan-300">
+                        0{i + 1} · Experience
                       </p>
 
-                      {/* Role */}
-                      <h3 className="mt-3 text-xl font-semibold tracking-tight text-white sm:text-2xl">
-                        {internship.role}
+                      <h3 className="mt-2 text-lg font-semibold">
+                        {item.role}
                       </h3>
 
-                      {/* Company */}
-                      <p className="mt-2 text-zinc-400">
-                        {internship.company}
+                      <p className="mt-1 text-sm text-zinc-500">
+                        {item.company}
                       </p>
                     </div>
+
+                    <span className="rounded-full border border-cyan-300/10 bg-cyan-300/[0.04] px-3 py-1.5 text-[10px] text-cyan-200/70">
+                      {item.duration}
+                    </span>
                   </div>
 
-                  {/* Duration */}
-                  <span className="w-fit rounded-full border border-cyan-400/15 bg-cyan-400/[0.045] px-4 py-2 text-xs font-medium tracking-[0.18em] text-cyan-300/75">
-                    {internship.duration}
-                  </span>
+                  <p className="mt-6 max-w-4xl text-sm leading-7 text-zinc-500">
+                    {item.description}
+                  </p>
+
+                  <div className="mt-5 grid gap-2 sm:grid-cols-2">
+                    {item.points.map((point) => (
+                      <p
+                        key={point}
+                        className="flex gap-2 text-xs leading-6 text-zinc-500"
+                      >
+                        <CheckCircle2
+                          size={14}
+                          className="mt-1 shrink-0 text-cyan-300/60"
+                        />
+                        {point}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </SectionShell>
+
+        {/* PROJECTS */}
+        <SectionShell
+          id="projects"
+          number="04 / 07"
+          eyebrow="Projects"
+          title="Projects"
+          subtitle="A collection of academic, research, AI, and full-stack projects."
+        >
+          <div className="mb-6 flex flex-wrap gap-2">
+            <span className="rounded border border-cyan-300/50 bg-cyan-300/[0.06] px-3 py-2 text-[10px] text-cyan-200">
+              All
+            </span>
+
+            <span className="rounded border border-white/[0.08] px-3 py-2 text-[10px] text-zinc-600">
+              AI / ML
+            </span>
+
+            <span className="rounded border border-white/[0.08] px-3 py-2 text-[10px] text-zinc-600">
+              Development
+            </span>
+
+            <span className="rounded border border-white/[0.08] px-3 py-2 text-[10px] text-zinc-600">
+              Research
+            </span>
+          </div>
+
+          <div className="grid gap-4 xl:grid-cols-2">
+            {projects.map((project, i) => (
+              <motion.article
+                key={project.number}
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="group overflow-hidden rounded-xl border border-white/[0.08] bg-[#061018]/75 transition duration-500 hover:-translate-y-1 hover:border-cyan-300/25 hover:shadow-[0_25px_80px_rgba(0,0,0,0.35)]"
+              >
+                <div className="relative overflow-hidden border-b border-white/[0.08]">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="h-60 w-full object-cover transition duration-700 group-hover:scale-105"
+                  />
+
+                  <div className="absolute left-3 top-3 rounded border border-white/10 bg-[#03070c]/85 px-2.5 py-1.5 text-[9px] text-zinc-300 backdrop-blur">
+                    /{project.number}
+                  </div>
+
+                  {project.status && (
+                    <div className="absolute right-3 top-3 rounded border border-cyan-300/20 bg-[#03070c]/85 px-2.5 py-1.5 text-[9px] text-cyan-200 backdrop-blur">
+                      {project.status}
+                    </div>
+                  )}
                 </div>
 
-                {/* Divider */}
-                <div className="my-7 h-px w-full bg-gradient-to-r from-cyan-400/20 via-white/10 to-transparent" />
+                <div className="p-6 sm:p-7">
+                  <div className="flex items-start justify-between gap-4">
+                    <h3 className="text-lg font-semibold leading-6 text-zinc-100">
+                      {project.title}
+                    </h3>
 
-                {/* Description */}
-                <p className="max-w-4xl leading-7 text-zinc-400">
-                  {internship.description}
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="shrink-0 rounded border border-white/10 p-2 text-zinc-500 transition hover:border-cyan-300/30 hover:text-cyan-200"
+                      >
+                        <Code2 size={15} />
+                      </a>
+                    )}
+                  </div>
+
+                  <p className="mt-4 text-xs leading-6 text-zinc-500">
+                    {project.description}
+                  </p>
+
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {project.tech.map((tech) => (
+                      <span
+                        key={tech}
+                        className="rounded border border-white/[0.07] px-2 py-1 text-[9px] text-zinc-500"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-6 border-t border-white/[0.07] pt-5">
+                    <p className="mb-3 text-[9px] uppercase tracking-[0.22em] text-zinc-600">
+                      Project details
+                    </p>
+
+                    <ul className="space-y-2">
+                      {project.details.map((detail) => (
+                        <li
+                          key={detail}
+                          className="flex gap-2 text-xs leading-5 text-zinc-600"
+                        >
+                          <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-cyan-300/50" />
+                          {detail}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-6 inline-flex items-center gap-2 text-xs font-medium text-cyan-300 hover:text-cyan-200"
+                    >
+                      View on GitHub
+                      <ArrowUpRight size={14} />
+                    </a>
+                  )}
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </SectionShell>
+
+        {/* EDUCATION */}
+        <SectionShell
+          id="education"
+          number="05 / 07"
+          eyebrow="Education"
+          title="Education"
+          subtitle="Academic foundation behind the work."
+        >
+          <div className="relative ml-2 border-l border-cyan-300/15 pl-7 sm:pl-10">
+            {[
+              [
+                "Bachelor of Technology",
+                "Computer Science and Engineering",
+                "Lakireddy Bali Reddy College of Engineering",
+                "Andhra Pradesh",
+                "2023 – 2027",
+                "CGPA: 7.96 / 10",
+                true,
+              ],
+              [
+                "Intermediate",
+                "Class XII",
+                "SriChaitanya Junior College",
+                "Amalapuram, Andhra Pradesh",
+                "2020 – 2022",
+                "Percentage: 80.2%",
+                false,
+              ],
+              [
+                "Secondary School Education",
+                "Class X",
+                "ZPP High School",
+                "Cheyyeru, Andhra Pradesh",
+                "2019 – 2020",
+                "Percentage: 86%",
+                false,
+              ],
+            ].map((item, i) => (
+              <motion.div
+                key={item[2]}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="relative mb-5 last:mb-0"
+              >
+                <span
+                  className={`absolute -left-[35px] top-7 flex h-3 w-3 items-center justify-center rounded-full border ${
+                    item[6]
+                      ? "border-cyan-300 bg-cyan-300 shadow-[0_0_15px_rgba(34,211,238,0.7)]"
+                      : "border-zinc-600 bg-[#02060a]"
+                  } sm:-left-[49px]`}
+                />
+
+                <div
+                  className={`rounded-2xl border p-6 sm:p-8 ${
+                    item[6]
+                      ? "border-cyan-300/25 bg-cyan-300/[0.035]"
+                      : "border-white/[0.08] bg-[#061018]/70"
+                  }`}
+                >
+                  <div className="flex flex-col gap-5 sm:flex-row sm:justify-between">
+                    <div>
+                      <p className="text-[9px] uppercase tracking-[0.22em] text-cyan-300">
+                        {item[0]}
+                      </p>
+
+                      <h3 className="mt-2 text-xl font-semibold">
+                        {item[1]}
+                      </h3>
+
+                      <p className="mt-2 text-sm text-zinc-400">
+                        {item[2]}
+                      </p>
+
+                      <p className="mt-1 text-xs text-zinc-600">
+                        {item[3]}
+                      </p>
+                    </div>
+
+                    <div className="sm:text-right">
+                      <p className="text-xs text-zinc-600">
+                        {item[4]}
+                      </p>
+
+                      <p className="mt-2 text-sm font-medium text-cyan-200/80">
+                        {item[5]}
+                      </p>
+
+                      {item[6] && (
+                        <span className="mt-3 inline-flex rounded-full border border-cyan-300/20 px-2.5 py-1 text-[9px] text-cyan-200">
+                          Current
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </SectionShell>
+
+        {/* CERTIFICATIONS */}
+        <SectionShell
+          id="certifications"
+          number="06 / 07"
+          eyebrow="Certifications"
+          title="Certifications"
+          subtitle="Credentials and focused learning that complement my technical foundation."
+        >
+          <div className="grid gap-2 md:grid-cols-2">
+            {certifications.map((cert, i) => (
+              <motion.div
+                key={cert}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="group flex items-center gap-4 rounded-xl border border-white/[0.08] bg-[#061018]/65 p-5 transition hover:border-cyan-300/25 hover:bg-cyan-300/[0.03]"
+              >
+                <span className="text-[10px] font-bold text-cyan-300">
+                  0{i + 1}
+                </span>
+
+                <Award
+                  size={16}
+                  className="text-zinc-500 group-hover:text-cyan-300"
+                />
+
+                <p className="text-sm text-zinc-400">
+                  {cert}
                 </p>
 
-                {/* Points */}
-                <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-                  {internship.points.map((point) => (
-                    <li
-                      key={point}
-                      className="flex gap-3 rounded-xl border border-white/[0.06] bg-black/10 p-3.5 text-sm leading-6 text-zinc-500 transition duration-300 group-hover:border-white/[0.09]"
-                    >
-                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300/60" />
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
+                <ArrowUpRight
+                  size={14}
+                  className="ml-auto text-zinc-700 group-hover:text-cyan-300"
+                />
+              </motion.div>
+            ))}
+          </div>
+        </SectionShell>
 
-                {/* Bottom accent */}
-                <div className="mt-7 h-1 w-10 rounded-full bg-cyan-300/60 transition-all duration-500 group-hover:w-20" />
-              </div>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  </div>
-</section>
-
-{/* Projects */}
-<section
-  id="projects"
-  className="relative overflow-hidden border-t border-white/10 px-6 py-32"
->
-  {/* Background glows */}
-  <div className="pointer-events-none absolute left-[-10%] top-40 h-96 w-96 rounded-full bg-cyan-400/[0.025] blur-[140px]" />
-
-  <div className="pointer-events-none absolute bottom-20 right-[-8%] h-96 w-96 rounded-full bg-cyan-400/[0.03] blur-[140px]" />
-
-  <div className="relative mx-auto max-w-7xl">
-    {/* Section heading */}
-    <div className="mb-14 flex items-center gap-4">
-      <span className="h-px w-10 bg-cyan-300/70" />
-
-      <p className="text-sm uppercase tracking-[0.3em] text-cyan-400/70">
-        04 — Projects
-      </p>
-    </div>
-
-    <div className="grid gap-8 lg:grid-cols-[1fr_0.65fr] lg:items-end">
-      <div>
-        <h2 className="max-w-4xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-          Things I've{" "}
-          <span className="text-zinc-500">built.</span>
-        </h2>
-      </div>
-
-      <p className="max-w-md text-base leading-7 text-zinc-500 lg:justify-self-end">
-        A selection of academic, research, AI, and full-stack
-        projects built through practical hands-on experience.
-      </p>
-    </div>
-
-    {/* Project cards */}
-    <div className="mt-16 grid gap-7 lg:grid-cols-2">
-      {projects.map((project, index) => (
-        <motion.div
-          key={project.number}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{
-            delay: index * 0.07,
-            duration: 0.55,
-          }}
-          className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.045] via-white/[0.02] to-transparent transition duration-500 hover:-translate-y-2 hover:border-cyan-400/25 hover:shadow-[0_30px_90px_rgba(0,0,0,0.4)]"
+        {/* CONTACT */}
+        <SectionShell
+          id="contact"
+          number="07 / 07"
+          eyebrow="Contact"
+          title="Contact"
+          subtitle="I'm open to opportunities where I can apply my skills in software development, AI/ML, and technology-driven problem solving."
         >
-          {/* Card glow */}
-          <div className="pointer-events-none absolute -right-24 -top-24 h-56 w-56 rounded-full bg-cyan-400/[0.035] blur-[80px] transition duration-500 group-hover:bg-cyan-400/[0.1]" />
-
-          <div className="relative p-5 sm:p-7">
-            {/* Project image */}
-            <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/30">
-              <img
-                src={project.image}
-                alt={project.title}
-                className="h-64 w-full object-cover transition duration-700 group-hover:scale-105"
-              />
-
-              {/* Image overlay */}
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-70" />
-
-              {/* Project number */}
-              <div className="absolute left-4 top-4 rounded-full border border-white/10 bg-black/50 px-3 py-1.5 text-xs font-medium tracking-[0.15em] text-zinc-300 backdrop-blur-md">
-                {project.number}
-              </div>
-
-              {/* Status */}
-              {project.status && (
-                <div className="absolute right-4 top-4 rounded-full border border-cyan-400/20 bg-black/50 px-3 py-1.5 text-xs text-cyan-300 backdrop-blur-md">
-                  {project.status}
-                </div>
-              )}
-            </div>
-
-            {/* Project content */}
-            <div className="px-1 pb-2 pt-8">
-              <h3 className="text-2xl font-semibold leading-tight tracking-tight text-white sm:text-3xl">
-                {project.title}
-              </h3>
-
-              <p className="mt-5 leading-7 text-zinc-500">
-                {project.description}
+          <div className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
+            <div className="rounded-2xl border border-cyan-300/15 bg-cyan-300/[0.035] p-7 sm:p-10">
+              <p className="text-5xl font-semibold tracking-tight sm:text-7xl">
+                Let's
+                <br />
+                <span className="text-cyan-300">connect.</span>
               </p>
 
-              {/* Details */}
-              <ul className="mt-6 space-y-3">
-                {project.details.map((detail) => (
-                  <li
-                    key={detail}
-                    className="flex gap-3 text-sm leading-6 text-zinc-500"
-                  >
-                    <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300/60" />
-                    <span>{detail}</span>
-                  </li>
-                ))}
-              </ul>
+              <p className="mt-7 max-w-md text-sm leading-7 text-zinc-500">
+                Have an opportunity, project, or idea? I'd be happy to
+                connect and explore how we can turn it into something useful.
+              </p>
 
-              {/* Technologies */}
-              <div className="mt-7 flex flex-wrap gap-2">
-                {project.tech.map((technology) => (
-                  <span
-                    key={technology}
-                    className="rounded-full border border-white/[0.08] bg-white/[0.035] px-3.5 py-2 text-xs text-zinc-400 transition duration-300 hover:border-cyan-400/25 hover:bg-cyan-400/[0.05] hover:text-cyan-200"
-                  >
-                    {technology}
-                  </span>
-                ))}
-              </div>
+              <a
+                href="mailto:tallaganesh17@gmail.com"
+                className="mt-8 inline-flex items-center gap-2 rounded-md bg-cyan-300 px-5 py-3 text-sm font-semibold text-black hover:bg-cyan-200"
+              >
+                <Mail size={15} />
+                Email me
+              </a>
+            </div>
 
-              {/* GitHub */}
-              {project.github && (
+            <div className="rounded-2xl border border-white/[0.08] bg-[#061018]/75 p-5">
+              {[
+                [
+                  "Email",
+                  "tallaganesh17@gmail.com",
+                  "mailto:tallaganesh17@gmail.com",
+                  Mail,
+                ],
+                [
+                  "GitHub",
+                  "TallaSatyaGanesh",
+                  "https://github.com/TallaSatyaGanesh",
+                  Code2,
+                ],
+                [
+                  "LinkedIn",
+                  "Satya Ganesh Talla",
+                  "https://linkedin.com/in/talla-satya-ganesh-0a26842ba",
+                  Code2,
+                ],
+                [
+                  "HackerRank",
+                  "tallaganesh17",
+                  "https://www.hackerrank.com/profile/tallaganesh17",
+                  Code2,
+                ],
+              ].map(([label, text, href, Icon]) => (
                 <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-8 inline-flex items-center gap-2 rounded-full border border-cyan-400/15 bg-cyan-400/[0.04] px-5 py-2.5 text-sm font-medium text-cyan-300 transition duration-300 hover:border-cyan-400/30 hover:bg-cyan-400/[0.09] hover:text-cyan-200"
+                  key={label}
+                  href={href}
+                  target={
+                    href.startsWith("http") ? "_blank" : undefined
+                  }
+                  rel={
+                    href.startsWith("http") ? "noreferrer" : undefined
+                  }
+                  className="group flex items-center gap-4 border-b border-white/[0.07] px-3 py-5 last:border-0"
                 >
-                  View on GitHub
+                  <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.02] text-zinc-500 group-hover:border-cyan-300/25 group-hover:text-cyan-300">
+                    <Icon size={15} />
+                  </span>
+
+                  <div>
+                    <p className="text-[9px] uppercase tracking-[0.18em] text-zinc-600">
+                      {label}
+                    </p>
+
+                    <p className="mt-1 text-sm text-zinc-300">
+                      {text}
+                    </p>
+                  </div>
+
                   <ExternalLink
-                    size={15}
-                    className="transition-transform duration-300 group-hover:translate-x-0.5"
+                    size={14}
+                    className="ml-auto text-zinc-700 group-hover:text-cyan-300"
                   />
                 </a>
-              )}
+              ))}
             </div>
           </div>
+        </SectionShell>
+      </main>
 
-          {/* Bottom accent */}
-          <div className="h-px w-0 bg-cyan-300/60 transition-all duration-700 group-hover:w-full" />
-        </motion.div>
-      ))}
-    </div>
-  </div>
-</section>
-
-{/* Education */}
-<section
-  id="education"
-  className="relative overflow-hidden border-t border-white/10 px-6 py-32"
->
-  <div className="pointer-events-none absolute left-[-10%] top-24 h-80 w-80 rounded-full bg-cyan-400/[0.03] blur-[130px]" />
-
-  <div className="pointer-events-none absolute bottom-10 right-[-8%] h-96 w-96 rounded-full bg-cyan-400/[0.025] blur-[140px]" />
-
-  <div className="relative mx-auto max-w-7xl">
-    <div className="mb-14 flex items-center gap-4">
-      <span className="h-px w-10 bg-cyan-300/70" />
-
-      <p className="text-sm uppercase tracking-[0.3em] text-cyan-400/70">
-        05 — Education
-      </p>
-    </div>
-
-    <div className="grid gap-8 lg:grid-cols-[1fr_0.65fr] lg:items-end">
-      <div>
-        <h2 className="max-w-4xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-          Academic{" "}
-          <span className="text-zinc-500">foundation.</span>
-        </h2>
-      </div>
-
-      <p className="max-w-md text-base leading-7 text-zinc-500 lg:justify-self-end">
-        The academic journey that built my foundation in computer
-        science, technology, and problem solving.
-      </p>
-    </div>
-
-    <div className="relative mt-16 space-y-5">
-      <div className="absolute left-5 top-8 hidden h-[calc(100%-4rem)] w-px bg-gradient-to-b from-cyan-400/40 via-white/10 to-transparent sm:block" />
-
-      {/* B.Tech */}
-      <motion.div
-        initial={{ opacity: 0, y: 25 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="group relative sm:pl-16"
-      >
-        <div className="absolute left-[12px] top-8 hidden h-[17px] w-[17px] rounded-full border-4 border-[#09090b] bg-cyan-300 shadow-[0_0_18px_rgba(103,232,249,0.45)] sm:block" />
-
-        <div className="relative overflow-hidden rounded-[2rem] border border-cyan-400/20 bg-gradient-to-br from-cyan-400/[0.055] via-white/[0.02] to-transparent p-7 transition duration-500 hover:-translate-y-1 hover:border-cyan-400/35 hover:shadow-[0_25px_80px_rgba(0,0,0,0.3)] sm:p-9">
-          <div className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-cyan-400/[0.05] blur-[70px] transition duration-500 group-hover:bg-cyan-400/[0.11]" />
-
-          <div className="relative">
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-              <div className="flex gap-5">
-                <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-400/20 bg-cyan-400/[0.06] sm:flex">
-                  <GraduationCap
-                    size={21}
-                    className="text-cyan-300"
-                  />
-                </div>
-
-                <div>
-                  <div className="flex flex-wrap items-center gap-3">
-                    <span className="rounded-full border border-cyan-400/15 bg-cyan-400/[0.05] px-3 py-1 text-xs uppercase tracking-[0.18em] text-cyan-300/75">
-                      01
-                    </span>
-
-                    <span className="text-xs uppercase tracking-[0.18em] text-zinc-600">
-                      Current
-                    </span>
-                  </div>
-
-                  <h3 className="mt-4 text-xl font-semibold leading-7 text-white sm:text-2xl">
-                    Bachelor of Technology in Computer Science and Engineering
-                  </h3>
-
-                  <p className="mt-3 text-zinc-300">
-                    Lakireddy Bali Reddy College of Engineering
-                  </p>
-
-                  <p className="mt-1 text-sm text-zinc-600">
-                    Andhra Pradesh
-                  </p>
-                </div>
-              </div>
-
-              <div className="rounded-xl border border-white/10 bg-black/15 px-4 py-3 lg:text-right">
-                <p className="text-sm text-zinc-500">
-                  2023 – 2027
-                </p>
-
-                <p className="mt-1 text-sm font-medium text-cyan-300/80">
-                  CGPA: 7.96 / 10
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-7 h-px w-full bg-gradient-to-r from-cyan-400/20 via-white/10 to-transparent" />
-
-            <div className="mt-6 h-1 w-10 rounded-full bg-cyan-300/60 transition-all duration-500 group-hover:w-16" />
-          </div>
+      {/* Footer */}
+      <footer className="border-t border-white/[0.08] px-6 py-7 lg:ml-[245px]">
+        <div className="mx-auto flex max-w-[1380px] flex-col gap-2 text-[10px] text-zinc-600 sm:flex-row sm:justify-between">
+          <p>© 2026 Satya Ganesh Talla</p>
+          <p>Built with React · Vite · Tailwind CSS</p>
         </div>
-      </motion.div>
-
-      {/* Intermediate */}
-      <motion.div
-        initial={{ opacity: 0, y: 25 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.1, duration: 0.5 }}
-        className="group relative sm:pl-16"
-      >
-        <div className="absolute left-[12px] top-8 hidden h-[17px] w-[17px] rounded-full border-4 border-[#09090b] bg-zinc-600 transition duration-300 group-hover:bg-cyan-300 group-hover:shadow-[0_0_18px_rgba(103,232,249,0.4)] sm:block" />
-
-        <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.04] via-white/[0.02] to-transparent p-7 transition duration-500 hover:-translate-y-1 hover:border-cyan-400/25 hover:shadow-[0_20px_60px_rgba(0,0,0,0.25)] sm:p-9">
-          <div className="pointer-events-none absolute -right-20 -top-20 h-44 w-44 rounded-full bg-cyan-400/[0.025] blur-[65px] transition duration-500 group-hover:bg-cyan-400/[0.08]" />
-
-          <div className="relative">
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-              <div className="flex gap-5">
-                <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.03] sm:flex">
-                  <GraduationCap
-                    size={20}
-                    className="text-zinc-500 transition group-hover:text-cyan-300"
-                  />
-                </div>
-
-                <div>
-                  <span className="inline-flex rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs uppercase tracking-[0.18em] text-zinc-600">
-                    02
-                  </span>
-
-                  <h3 className="mt-4 text-xl font-semibold leading-7 text-white">
-                    Intermediate (Class XII)
-                  </h3>
-
-                  <p className="mt-3 text-zinc-400">
-                    SriChaitanya Junior College
-                  </p>
-
-                  <p className="mt-1 text-sm text-zinc-600">
-                    Amalapuram, Andhra Pradesh
-                  </p>
-                </div>
-              </div>
-
-              <div className="rounded-xl border border-white/10 bg-black/15 px-4 py-3 lg:text-right">
-                <p className="text-sm text-zinc-500">
-                  2020 – 2022
-                </p>
-
-                <p className="mt-1 text-sm font-medium text-zinc-300">
-                  Percentage: 80.2%
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-7 h-px w-full bg-gradient-to-r from-white/10 via-white/5 to-transparent" />
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Secondary School */}
-      <motion.div
-        initial={{ opacity: 0, y: 25 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.2, duration: 0.5 }}
-        className="group relative sm:pl-16"
-      >
-        <div className="absolute left-[12px] top-8 hidden h-[17px] w-[17px] rounded-full border-4 border-[#09090b] bg-zinc-600 transition duration-300 group-hover:bg-cyan-300 group-hover:shadow-[0_0_18px_rgba(103,232,249,0.4)] sm:block" />
-
-        <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.04] via-white/[0.02] to-transparent p-7 transition duration-500 hover:-translate-y-1 hover:border-cyan-400/25 hover:shadow-[0_20px_60px_rgba(0,0,0,0.25)] sm:p-9">
-          <div className="pointer-events-none absolute -right-20 -top-20 h-44 w-44 rounded-full bg-cyan-400/[0.025] blur-[65px] transition duration-500 group-hover:bg-cyan-400/[0.08]" />
-
-          <div className="relative">
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-              <div className="flex gap-5">
-                <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.03] sm:flex">
-                  <GraduationCap
-                    size={20}
-                    className="text-zinc-500 transition group-hover:text-cyan-300"
-                  />
-                </div>
-
-                <div>
-                  <span className="inline-flex rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs uppercase tracking-[0.18em] text-zinc-600">
-                    03
-                  </span>
-
-                  <h3 className="mt-4 text-xl font-semibold leading-7 text-white">
-                    Secondary School Education (Class X)
-                  </h3>
-
-                  <p className="mt-3 text-zinc-400">
-                    ZPP High School
-                  </p>
-
-                  <p className="mt-1 text-sm text-zinc-600">
-                    Cheyyeru, Andhra Pradesh
-                  </p>
-                </div>
-              </div>
-
-              <div className="rounded-xl border border-white/10 bg-black/15 px-4 py-3 lg:text-right">
-                <p className="text-sm text-zinc-500">
-                  2019 – 2020
-                </p>
-
-                <p className="mt-1 text-sm font-medium text-zinc-300">
-                  Percentage: 86%
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-7 h-px w-full bg-gradient-to-r from-white/10 via-white/5 to-transparent" />
-          </div>
-        </div>
-      </motion.div>
-    </div>
-  </div>
-</section>
-
-{/* Certifications */}
-<section className="relative overflow-hidden border-t border-white/10 px-6 py-32">
-  <div className="pointer-events-none absolute left-[-8%] top-24 h-72 w-72 rounded-full bg-cyan-400/[0.025] blur-[120px]" />
-
-  <div className="relative mx-auto max-w-7xl">
-    <div className="mb-14 flex items-center gap-4">
-      <span className="h-px w-10 bg-cyan-300/70" />
-
-      <p className="text-sm uppercase tracking-[0.3em] text-cyan-400/70">
-        06 — Certifications
-      </p>
-    </div>
-
-    <div className="grid gap-8 lg:grid-cols-[1fr_0.65fr] lg:items-end">
-      <h2 className="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-        Learning beyond{" "}
-        <span className="text-zinc-500">the classroom.</span>
-      </h2>
-
-      <p className="max-w-md text-base leading-7 text-zinc-500 lg:justify-self-end">
-        Continuous learning through industry certifications,
-        technical courses, and professional skill development.
-      </p>
-    </div>
-
-    <div className="mt-14 grid gap-4 md:grid-cols-2">
-      {certifications.map((certification, index) => (
-        <motion.div
-          key={certification}
-          initial={{
-            opacity: 0,
-            y: 20,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{ once: true }}
-          transition={{
-            delay: index * 0.07,
-            duration: 0.45,
-          }}
-          className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.04] to-transparent p-6 transition duration-400 hover:-translate-y-1 hover:border-cyan-400/25 hover:bg-cyan-400/[0.025]"
-        >
-          <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-cyan-400/[0.04] blur-[45px] transition duration-500 group-hover:bg-cyan-400/[0.1]" />
-
-          <div className="relative flex items-start gap-5">
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-cyan-400/15 bg-cyan-400/[0.05] text-xs font-medium text-cyan-300">
-              {String(index + 1).padStart(2, "0")}
-            </div>
-
-            <div>
-              <p className="text-sm leading-6 text-zinc-300">
-                {certification}
-              </p>
-
-              <div className="mt-4 h-1 w-6 rounded-full bg-cyan-300/50 transition-all duration-500 group-hover:w-12" />
-            </div>
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  </div>
-</section>
-
-{/* Contact */}
-<section
-  id="contact"
-  className="relative overflow-hidden border-t border-white/10 px-6 py-32"
->
-  <div className="pointer-events-none absolute right-[-8%] top-20 h-96 w-96 rounded-full bg-cyan-400/[0.035] blur-[140px]" />
-
-  <div className="relative mx-auto max-w-7xl">
-    <div className="mb-14 flex items-center gap-4">
-      <span className="h-px w-10 bg-cyan-300/70" />
-
-      <p className="text-sm uppercase tracking-[0.3em] text-cyan-400/70">
-        07 — Contact
-      </p>
-    </div>
-
-    <div className="grid gap-14 lg:grid-cols-[1fr_0.75fr]">
-      <div>
-        <h2 className="max-w-4xl text-4xl font-semibold leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl">
-          Let's build something{" "}
-          <span className="text-zinc-500">meaningful.</span>
-        </h2>
-
-        <p className="mt-8 max-w-xl text-lg leading-8 text-zinc-500">
-          I'm open to opportunities where I can apply my skills in
-          software development, AI/ML, and technology-driven problem
-          solving.
-        </p>
-
-        <div className="mt-10 h-px w-24 bg-cyan-300/50" />
-      </div>
-
-      <div className="lg:pt-3">
-        <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.04] to-transparent">
-          <a
-            href="mailto:tallaganesh17@gmail.com"
-            className="group flex items-center gap-4 border-b border-white/10 px-6 py-6 text-zinc-300 transition duration-300 hover:bg-cyan-400/[0.035] hover:text-white"
-          >
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] transition group-hover:border-cyan-400/20 group-hover:bg-cyan-400/[0.05]">
-              <Mail size={18} />
-            </div>
-
-            <span className="text-sm sm:text-base">
-              tallaganesh17@gmail.com
-            </span>
-          </a>
-
-          <a
-            href="https://github.com/TallaSatyaGanesh"
-            target="_blank"
-            rel="noreferrer"
-            className="group flex items-center gap-4 border-b border-white/10 px-6 py-6 text-zinc-300 transition duration-300 hover:bg-cyan-400/[0.035] hover:text-white"
-          >
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] transition group-hover:border-cyan-400/20 group-hover:bg-cyan-400/[0.05]">
-              <Code2 size={18} />
-            </div>
-
-            <span>GitHub</span>
-
-            <ExternalLink
-              size={15}
-              className="ml-auto transition-transform duration-300 group-hover:translate-x-1"
-            />
-          </a>
-
-          <a
-            href="https://linkedin.com/in/talla-satya-ganesh-0a26842ba"
-            target="_blank"
-            rel="noreferrer"
-            className="group flex items-center gap-4 border-b border-white/10 px-6 py-6 text-zinc-300 transition duration-300 hover:bg-cyan-400/[0.035] hover:text-white"
-          >
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] transition group-hover:border-cyan-400/20 group-hover:bg-cyan-400/[0.05]">
-              <span className="text-sm font-bold">in</span>
-            </div>
-
-            <span>LinkedIn</span>
-
-            <ExternalLink
-              size={15}
-              className="ml-auto transition-transform duration-300 group-hover:translate-x-1"
-            />
-          </a>
-
-          <a
-            href="https://www.hackerrank.com/profile/tallaganesh17"
-            target="_blank"
-            rel="noreferrer"
-            className="group flex items-center gap-4 px-6 py-6 text-zinc-300 transition duration-300 hover:bg-cyan-400/[0.035] hover:text-white"
-          >
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] transition group-hover:border-cyan-400/20 group-hover:bg-cyan-400/[0.05]">
-              <Code2 size={18} />
-            </div>
-
-            <span>HackerRank</span>
-
-            <ExternalLink
-              size={15}
-              className="ml-auto transition-transform duration-300 group-hover:translate-x-1"
-            />
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-</main>
-
-{/* Footer */}
-<footer className="border-t border-cyan-400/10 px-6 py-8">
-  <div className="mx-auto flex max-w-7xl flex-col gap-3 text-sm text-zinc-600 sm:flex-row sm:items-center sm:justify-between">
-    <p>© 2026 Talla Satya Ganesh</p>
-
-    <p>Built with React · Vite · Tailwind CSS</p>
-  </div>
-</footer>
-</div>
-  );
-}
-
-function Stat({ value, label }) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-5">
-      <p className="text-2xl font-semibold text-white">{value}</p>
-
-      <p className="mt-1 text-sm text-zinc-600">{label}</p>
+      </footer>
     </div>
   );
 }
 
-function EducationCard({
-  degree,
-  institution,
-  location,
-  duration,
-  result,
+function SectionShell({
+  id,
+  number,
+  eyebrow,
+  title,
+  subtitle,
+  children,
 }) {
   return (
-    <div className="group relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-gradient-to-br from-white/[0.045] via-white/[0.02] to-transparent p-7 transition duration-500 hover:-translate-y-1 hover:border-cyan-400/25 hover:shadow-[0_20px_60px_rgba(0,0,0,0.25)] sm:p-8">
-      <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-cyan-400/[0.035] blur-[60px] transition duration-500 group-hover:bg-cyan-400/[0.08]" />
-
-      <div className="relative flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
-        <div className="flex gap-5">
-          <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.05] sm:flex">
-            <GraduationCap
-              size={20}
-              className="text-zinc-400 transition duration-300 group-hover:text-cyan-300"
-            />
-          </div>
-
+    <section
+      id={id}
+      className="border-t border-white/[0.08] px-6 py-24 sm:px-10 sm:py-28 lg:px-14"
+    >
+      <div className="mx-auto max-w-[1180px]">
+        <div className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h3 className="text-lg font-semibold leading-7 text-white">
-              {degree}
-            </h3>
-
-            <p className="mt-2 text-zinc-400">
-              {institution}
+            <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-cyan-300">
+              {number}
             </p>
 
-            <p className="mt-1 text-sm text-zinc-600">
-              {location}
-            </p>
+            <h2 className="mt-4 text-4xl font-semibold tracking-[-0.04em] sm:text-5xl lg:text-6xl">
+              {title}
+              <span className="text-cyan-300">.</span>
+            </h2>
           </div>
-        </div>
 
-        <div className="text-left sm:min-w-[140px] sm:text-right">
-          <p className="text-sm text-zinc-600">
-            {duration}
-          </p>
-
-          <p className="mt-2 text-sm font-medium text-cyan-300/75">
-            {result}
+          <p className="max-w-md text-xs leading-6 text-zinc-600 sm:text-sm">
+            {subtitle}
           </p>
         </div>
+
+        {children}
       </div>
+    </section>
+  );
+}
 
-      <div className="relative mt-6 h-px w-8 bg-cyan-300/50 transition-all duration-500 group-hover:w-14" />
+function Metric({ value, label }) {
+  return (
+    <div className="rounded-xl border border-white/[0.08] bg-[#061018]/65 p-5">
+      <p className="text-3xl font-semibold text-zinc-100">
+        {value}
+      </p>
+
+      <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-zinc-600">
+        {label}
+      </p>
     </div>
   );
 }
