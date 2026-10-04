@@ -830,93 +830,134 @@ function App() {
 {/* Projects */}
 <section
   id="projects"
-  className="border-t border-white/10 px-6 py-32"
+  className="relative overflow-hidden border-t border-white/10 px-6 py-32"
 >
-  <div className="mx-auto max-w-7xl">
-    <p className="mb-5 text-sm uppercase tracking-[0.3em] text-cyan-400/60">
-      04 — Projects
-    </p>
+  {/* Background glows */}
+  <div className="pointer-events-none absolute left-[-10%] top-40 h-96 w-96 rounded-full bg-cyan-400/[0.025] blur-[140px]" />
 
-    <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-      <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-        Things I've built.
-      </h2>
+  <div className="pointer-events-none absolute bottom-20 right-[-8%] h-96 w-96 rounded-full bg-cyan-400/[0.03] blur-[140px]" />
 
-      <p className="max-w-md text-sm leading-6 text-zinc-600">
-        A selection of academic, research, AI, and full-stack
-        projects.
+  <div className="relative mx-auto max-w-7xl">
+    {/* Section heading */}
+    <div className="mb-14 flex items-center gap-4">
+      <span className="h-px w-10 bg-cyan-300/70" />
+
+      <p className="text-sm uppercase tracking-[0.3em] text-cyan-400/70">
+        04 — Projects
       </p>
     </div>
 
-    <div className="mt-14 grid gap-6 lg:grid-cols-2">
+    <div className="grid gap-8 lg:grid-cols-[1fr_0.65fr] lg:items-end">
+      <div>
+        <h2 className="max-w-4xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+          Things I've{" "}
+          <span className="text-zinc-500">built.</span>
+        </h2>
+      </div>
+
+      <p className="max-w-md text-base leading-7 text-zinc-500 lg:justify-self-end">
+        A selection of academic, research, AI, and full-stack
+        projects built through practical hands-on experience.
+      </p>
+    </div>
+
+    {/* Project cards */}
+    <div className="mt-16 grid gap-7 lg:grid-cols-2">
       {projects.map((project, index) => (
         <motion.div
           key={project.number}
-          initial={{ opacity: 0, y: 25 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: index * 0.06 }}
-          className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.025] p-8 transition duration-500 hover:-translate-y-2 hover:border-cyan-400/25 hover:shadow-[0_25px_80px_rgba(0,0,0,0.35)] sm:p-10"
+          transition={{
+            delay: index * 0.07,
+            duration: 0.55,
+          }}
+          className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.045] via-white/[0.02] to-transparent transition duration-500 hover:-translate-y-2 hover:border-cyan-400/25 hover:shadow-[0_30px_90px_rgba(0,0,0,0.4)]"
         >
-          <div className="mb-8 overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/20">
-            <img
-              src={project.image}
-              alt={project.title}
-              className="h-56 w-full object-cover transition duration-500 group-hover:scale-105"
-            />
+          {/* Card glow */}
+          <div className="pointer-events-none absolute -right-24 -top-24 h-56 w-56 rounded-full bg-cyan-400/[0.035] blur-[80px] transition duration-500 group-hover:bg-cyan-400/[0.1]" />
+
+          <div className="relative p-5 sm:p-7">
+            {/* Project image */}
+            <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/30">
+              <img
+                src={project.image}
+                alt={project.title}
+                className="h-64 w-full object-cover transition duration-700 group-hover:scale-105"
+              />
+
+              {/* Image overlay */}
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-70" />
+
+              {/* Project number */}
+              <div className="absolute left-4 top-4 rounded-full border border-white/10 bg-black/50 px-3 py-1.5 text-xs font-medium tracking-[0.15em] text-zinc-300 backdrop-blur-md">
+                {project.number}
+              </div>
+
+              {/* Status */}
+              {project.status && (
+                <div className="absolute right-4 top-4 rounded-full border border-cyan-400/20 bg-black/50 px-3 py-1.5 text-xs text-cyan-300 backdrop-blur-md">
+                  {project.status}
+                </div>
+              )}
+            </div>
+
+            {/* Project content */}
+            <div className="px-1 pb-2 pt-8">
+              <h3 className="text-2xl font-semibold leading-tight tracking-tight text-white sm:text-3xl">
+                {project.title}
+              </h3>
+
+              <p className="mt-5 leading-7 text-zinc-500">
+                {project.description}
+              </p>
+
+              {/* Details */}
+              <ul className="mt-6 space-y-3">
+                {project.details.map((detail) => (
+                  <li
+                    key={detail}
+                    className="flex gap-3 text-sm leading-6 text-zinc-500"
+                  >
+                    <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300/60" />
+                    <span>{detail}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Technologies */}
+              <div className="mt-7 flex flex-wrap gap-2">
+                {project.tech.map((technology) => (
+                  <span
+                    key={technology}
+                    className="rounded-full border border-white/[0.08] bg-white/[0.035] px-3.5 py-2 text-xs text-zinc-400 transition duration-300 hover:border-cyan-400/25 hover:bg-cyan-400/[0.05] hover:text-cyan-200"
+                  >
+                    {technology}
+                  </span>
+                ))}
+              </div>
+
+              {/* GitHub */}
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-8 inline-flex items-center gap-2 rounded-full border border-cyan-400/15 bg-cyan-400/[0.04] px-5 py-2.5 text-sm font-medium text-cyan-300 transition duration-300 hover:border-cyan-400/30 hover:bg-cyan-400/[0.09] hover:text-cyan-200"
+                >
+                  View on GitHub
+                  <ExternalLink
+                    size={15}
+                    className="transition-transform duration-300 group-hover:translate-x-0.5"
+                  />
+                </a>
+              )}
+            </div>
           </div>
 
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-zinc-600">
-              {project.number}
-            </span>
-
-            {project.status && (
-              <span className="rounded-full border border-cyan-400/15 bg-cyan-400/[0.05] px-3 py-1 text-xs text-cyan-300/80">
-                {project.status}
-              </span>
-            )}
-          </div>
-
-          <h3 className="mt-10 text-2xl font-semibold leading-tight">
-            {project.title}
-          </h3>
-
-          <p className="mt-5 leading-7 text-zinc-500">
-            {project.description}
-          </p>
-
-          <ul className="mt-6 space-y-2 text-sm leading-6 text-zinc-500">
-            {project.details.map((detail) => (
-              <li key={detail} className="flex gap-3">
-                <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-zinc-600" />
-                {detail}
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-8 flex flex-wrap gap-2">
-            {project.tech.map((technology) => (
-              <span
-                key={technology}
-                className="rounded-full border border-white/5 bg-white/[0.04] px-3 py-1.5 text-xs text-zinc-400 transition hover:border-cyan-400/25 hover:text-cyan-200"
-              >
-                {technology}
-              </span>
-            ))}
-          </div>
-
-          {project.github && (
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-cyan-300 transition hover:text-cyan-200"
-            >
-              View on GitHub
-              <ExternalLink size={15} />
-            </a>
-          )}
+          {/* Bottom accent */}
+          <div className="h-px w-0 bg-cyan-300/60 transition-all duration-700 group-hover:w-full" />
         </motion.div>
       ))}
     </div>
@@ -926,16 +967,30 @@ function App() {
 {/* Education */}
 <section
   id="education"
-  className="border-t border-white/10 px-6 py-32"
+  className="relative overflow-hidden border-t border-white/10 px-6 py-32"
 >
-  <div className="mx-auto max-w-7xl">
-    <p className="mb-5 text-sm uppercase tracking-[0.3em] text-cyan-400/60">
-      05 — Education
-    </p>
+  <div className="pointer-events-none absolute right-[-10%] top-20 h-80 w-80 rounded-full bg-cyan-400/[0.025] blur-[130px]" />
 
-    <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-      Academic background.
-    </h2>
+  <div className="relative mx-auto max-w-7xl">
+    <div className="mb-14 flex items-center gap-4">
+      <span className="h-px w-10 bg-cyan-300/70" />
+
+      <p className="text-sm uppercase tracking-[0.3em] text-cyan-400/70">
+        05 — Education
+      </p>
+    </div>
+
+    <div className="grid gap-8 lg:grid-cols-[1fr_0.65fr] lg:items-end">
+      <h2 className="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+        Academic{" "}
+        <span className="text-zinc-500">background.</span>
+      </h2>
+
+      <p className="max-w-md text-base leading-7 text-zinc-500 lg:justify-self-end">
+        The academic foundation behind my journey in computer
+        science, software development, and AI/ML.
+      </p>
+    </div>
 
     <div className="mt-14 space-y-5">
       <EducationCard
@@ -966,33 +1021,64 @@ function App() {
 </section>
 
 {/* Certifications */}
-<section className="border-t border-white/10 px-6 py-32">
-  <div className="mx-auto max-w-7xl">
-    <p className="mb-5 text-sm uppercase tracking-[0.3em] text-cyan-400/60">
-      06 — Certifications
-    </p>
+<section className="relative overflow-hidden border-t border-white/10 px-6 py-32">
+  <div className="pointer-events-none absolute left-[-8%] top-24 h-72 w-72 rounded-full bg-cyan-400/[0.025] blur-[120px]" />
 
-    <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-      Learning beyond the classroom.
-    </h2>
+  <div className="relative mx-auto max-w-7xl">
+    <div className="mb-14 flex items-center gap-4">
+      <span className="h-px w-10 bg-cyan-300/70" />
 
-    <div className="mt-12 grid gap-4 md:grid-cols-2">
+      <p className="text-sm uppercase tracking-[0.3em] text-cyan-400/70">
+        06 — Certifications
+      </p>
+    </div>
+
+    <div className="grid gap-8 lg:grid-cols-[1fr_0.65fr] lg:items-end">
+      <h2 className="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+        Learning beyond{" "}
+        <span className="text-zinc-500">the classroom.</span>
+      </h2>
+
+      <p className="max-w-md text-base leading-7 text-zinc-500 lg:justify-self-end">
+        Continuous learning through industry certifications,
+        technical courses, and professional skill development.
+      </p>
+    </div>
+
+    <div className="mt-14 grid gap-4 md:grid-cols-2">
       {certifications.map((certification, index) => (
         <motion.div
           key={certification}
           initial={{
             opacity: 0,
-            x: index % 2 === 0 ? -15 : 15,
+            y: 20,
           }}
-          whileInView={{ opacity: 1, x: 0 }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
           viewport={{ once: true }}
-          className="flex items-center gap-4 rounded-2xl border border-cyan-400/10 bg-gradient-to-br from-cyan-400/[0.06] to-white/[0.015] p-5 transition hover:-translate-y-1 hover:border-cyan-400/25"
+          transition={{
+            delay: index * 0.07,
+            duration: 0.45,
+          }}
+          className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.04] to-transparent p-6 transition duration-400 hover:-translate-y-1 hover:border-cyan-400/25 hover:bg-cyan-400/[0.025]"
         >
-          <div className="h-2.5 w-2.5 rounded-full bg-cyan-300 shadow-[0_0_12px_rgba(103,232,249,0.45)]" />
+          <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-cyan-400/[0.04] blur-[45px] transition duration-500 group-hover:bg-cyan-400/[0.1]" />
 
-          <p className="text-sm leading-6 text-zinc-400">
-            {certification}
-          </p>
+          <div className="relative flex items-start gap-5">
+            <div className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-cyan-400/15 bg-cyan-400/[0.05] text-xs font-medium text-cyan-300">
+              {String(index + 1).padStart(2, "0")}
+            </div>
+
+            <div>
+              <p className="text-sm leading-6 text-zinc-300">
+                {certification}
+              </p>
+
+              <div className="mt-4 h-1 w-6 rounded-full bg-cyan-300/50 transition-all duration-500 group-hover:w-12" />
+            </div>
+          </div>
         </motion.div>
       ))}
     </div>
@@ -1002,74 +1088,104 @@ function App() {
 {/* Contact */}
 <section
   id="contact"
-  className="border-t border-white/10 px-6 py-32"
+  className="relative overflow-hidden border-t border-white/10 px-6 py-32"
 >
-  <div className="mx-auto max-w-7xl">
-    <p className="mb-5 text-sm uppercase tracking-[0.3em] text-cyan-400/60">
-      07 — Contact
-    </p>
+  <div className="pointer-events-none absolute right-[-8%] top-20 h-96 w-96 rounded-full bg-cyan-400/[0.035] blur-[140px]" />
 
-    <div className="grid gap-12 lg:grid-cols-2">
+  <div className="relative mx-auto max-w-7xl">
+    <div className="mb-14 flex items-center gap-4">
+      <span className="h-px w-10 bg-cyan-300/70" />
+
+      <p className="text-sm uppercase tracking-[0.3em] text-cyan-400/70">
+        07 — Contact
+      </p>
+    </div>
+
+    <div className="grid gap-14 lg:grid-cols-[1fr_0.75fr]">
       <div>
-        <h2 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-6xl">
+        <h2 className="max-w-4xl text-4xl font-semibold leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl">
           Let's build something{" "}
           <span className="text-zinc-500">meaningful.</span>
         </h2>
 
-        <p className="mt-7 max-w-xl text-lg leading-8 text-zinc-500">
+        <p className="mt-8 max-w-xl text-lg leading-8 text-zinc-500">
           I'm open to opportunities where I can apply my skills in
           software development, AI/ML, and technology-driven problem
           solving.
         </p>
+
+        <div className="mt-10 h-px w-24 bg-cyan-300/50" />
       </div>
 
       <div className="lg:pt-3">
-        <a
-          href="mailto:tallaganesh17@gmail.com"
-          className="flex items-center gap-4 border-b border-white/10 py-5 text-zinc-300 transition hover:text-white"
-        >
-          <Mail size={20} />
-          <span>tallaganesh17@gmail.com</span>
-        </a>
+        <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.04] to-transparent">
+          <a
+            href="mailto:tallaganesh17@gmail.com"
+            className="group flex items-center gap-4 border-b border-white/10 px-6 py-6 text-zinc-300 transition duration-300 hover:bg-cyan-400/[0.035] hover:text-white"
+          >
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] transition group-hover:border-cyan-400/20 group-hover:bg-cyan-400/[0.05]">
+              <Mail size={18} />
+            </div>
 
-        <a
-          href="https://github.com/TallaSatyaGanesh"
-          target="_blank"
-          rel="noreferrer"
-          className="flex items-center gap-4 border-b border-white/10 py-5 text-zinc-300 transition hover:text-white"
-        >
-          <Code2 size={20} />
-          <span>GitHub</span>
-          <ExternalLink size={15} className="ml-auto" />
-        </a>
+            <span className="text-sm sm:text-base">
+              tallaganesh17@gmail.com
+            </span>
+          </a>
 
-        <a
-          href="https://linkedin.com/in/talla-satya-ganesh-0a26842ba"
-          target="_blank"
-          rel="noreferrer"
-          className="flex items-center gap-4 border-b border-white/10 py-5 text-zinc-300 transition hover:text-white"
-        >
-          <span className="flex h-5 w-5 items-center justify-center rounded bg-zinc-300 text-xs font-bold text-black">
-            in
-          </span>
+          <a
+            href="https://github.com/TallaSatyaGanesh"
+            target="_blank"
+            rel="noreferrer"
+            className="group flex items-center gap-4 border-b border-white/10 px-6 py-6 text-zinc-300 transition duration-300 hover:bg-cyan-400/[0.035] hover:text-white"
+          >
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] transition group-hover:border-cyan-400/20 group-hover:bg-cyan-400/[0.05]">
+              <Code2 size={18} />
+            </div>
 
-          <span>LinkedIn</span>
+            <span>GitHub</span>
 
-          <ExternalLink size={15} className="ml-auto" />
-        </a>
+            <ExternalLink
+              size={15}
+              className="ml-auto transition-transform duration-300 group-hover:translate-x-1"
+            />
+          </a>
 
-        <a
-          href="https://www.hackerrank.com/profile/tallaganesh17"
-          target="_blank"
-          rel="noreferrer"
-          className="flex items-center gap-4 border-b border-white/10 py-5 text-zinc-300 transition hover:text-white"
-        >
-          <Code2 size={20} />
+          <a
+            href="https://linkedin.com/in/talla-satya-ganesh-0a26842ba"
+            target="_blank"
+            rel="noreferrer"
+            className="group flex items-center gap-4 border-b border-white/10 px-6 py-6 text-zinc-300 transition duration-300 hover:bg-cyan-400/[0.035] hover:text-white"
+          >
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] transition group-hover:border-cyan-400/20 group-hover:bg-cyan-400/[0.05]">
+              <span className="text-sm font-bold">in</span>
+            </div>
 
-          <span>HackerRank</span>
+            <span>LinkedIn</span>
 
-          <ExternalLink size={15} className="ml-auto" />
-        </a>
+            <ExternalLink
+              size={15}
+              className="ml-auto transition-transform duration-300 group-hover:translate-x-1"
+            />
+          </a>
+
+          <a
+            href="https://www.hackerrank.com/profile/tallaganesh17"
+            target="_blank"
+            rel="noreferrer"
+            className="group flex items-center gap-4 px-6 py-6 text-zinc-300 transition duration-300 hover:bg-cyan-400/[0.035] hover:text-white"
+          >
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] transition group-hover:border-cyan-400/20 group-hover:bg-cyan-400/[0.05]">
+              <Code2 size={18} />
+            </div>
+
+            <span>HackerRank</span>
+
+            <ExternalLink
+              size={15}
+              className="ml-auto transition-transform duration-300 group-hover:translate-x-1"
+            />
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -1106,18 +1222,20 @@ function EducationCard({
   result,
 }) {
   return (
-    <div className="rounded-3xl border border-white/10 bg-white/[0.025] p-7 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/20 hover:bg-cyan-400/[0.02] sm:p-8">
-      <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+    <div className="group relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-gradient-to-br from-white/[0.045] via-white/[0.02] to-transparent p-7 transition duration-500 hover:-translate-y-1 hover:border-cyan-400/25 hover:shadow-[0_20px_60px_rgba(0,0,0,0.25)] sm:p-8">
+      <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-cyan-400/[0.035] blur-[60px] transition duration-500 group-hover:bg-cyan-400/[0.08]" />
+
+      <div className="relative flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex gap-5">
           <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.05] text-cyan-300 sm:flex">
             <GraduationCap
               size={20}
-              className="text-zinc-400"
+              className="transition duration-300 group-hover:text-cyan-200"
             />
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold leading-7">
+            <h3 className="text-lg font-semibold leading-7 text-white">
               {degree}
             </h3>
 
@@ -1131,16 +1249,18 @@ function EducationCard({
           </div>
         </div>
 
-        <div className="text-left sm:text-right">
+        <div className="text-left sm:min-w-[140px] sm:text-right">
           <p className="text-sm text-zinc-600">
             {duration}
           </p>
 
-          <p className="mt-2 text-sm font-medium text-zinc-300">
+          <p className="mt-2 text-sm font-medium text-cyan-300/75">
             {result}
           </p>
         </div>
       </div>
+
+      <div className="relative mt-6 h-px w-8 bg-cyan-300/50 transition-all duration-500 group-hover:w-14" />
     </div>
   );
 }
