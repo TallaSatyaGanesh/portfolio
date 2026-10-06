@@ -441,11 +441,8 @@ function App() {
                 <span>Problem Solver</span>
               </div>
 
-              <p className="mt-6 max-w-xl text-sm leading-7 text-zinc-500 sm:text-base">
-                Computer Science undergraduate with a strong foundation in
-                software development, machine learning, and problem-solving.
-                Passionate about building practical and scalable technology
-                solutions.
+              <p className="mt-2 max-w-2xl text-base leading-7 text-zinc-400 sm:text-lg sm:leading-8">
+                  I'm a Computer Science undergraduate with a strong foundation in software development, machine learning, and problem-solving. I have hands-on experience in full-stack development and machine learning, along with research experience in bioinformatics.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
